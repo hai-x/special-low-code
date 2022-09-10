@@ -1,8 +1,9 @@
 <template>
-    <div class="assetList__wrapper">
-        <draggable v-model="assetList" item-key="id" :group="assetListGroup" :clone="generator">
+    <div>
+        <draggable v-model="assetList" item-key="id" :group="assetListGroup" :clone="useGenerator"
+            class="assetList__wrapper">
             <template #item="{element}">
-                <el-card shadow="hover" :body-style="CARD_STYLE">
+                <el-card shadow="hover" :body-style="CARD_STYLE" class="asset__wrapper">
                     {{element.title}}
                 </el-card>
             </template>
@@ -14,7 +15,7 @@
 <script lang='ts' setup>
 import Draggable from 'vuedraggable'
 import { assetListGroup } from '~/constants/draggable/group'
-import generator from '~/utils/generator'
+import useGenerator from '~/composables/useGenerator'
 import assetMap from '~/constants/asset/assetMap'
 
 // const handleChange = () => {
@@ -49,7 +50,11 @@ const assetList = [
 <style lang="scss" scoped>
 .assetList__wrapper {
     display: flex;
-    justify-content: space-between;
+}
 
+.asset__wrapper {
+    margin: 10px;
+    color: gray;
+    font-weight: 600;
 }
 </style>

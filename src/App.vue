@@ -5,5 +5,6 @@
 <script lang='ts' setup>
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
+
 </style>

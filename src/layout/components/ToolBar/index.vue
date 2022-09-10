@@ -1,13 +1,14 @@
 <template>
   <div class="toolbar__wrapper">
     <div class="toolbar__info">
-      
+
     </div>
     <div class="toolbar__operate">
       <el-button>撤消</el-button>
-      <el-button>预览</el-button>
-      <el-button>保存</el-button>
-      <el-button>清空画布</el-button>
+      <el-button @click="config?.preview">预览</el-button>
+      <el-button @click="config?.importSchema">导入JSON</el-button>
+      <el-button @click="config?.exportSchema">导出JSON</el-button>
+      <el-button @click="config?.reset">清空画布</el-button>
     </div>
 
   </div>
@@ -15,6 +16,16 @@
 
 <script lang='ts' setup>
 import { ElButton } from 'element-plus';
+
+defineProps<{
+  config?: {
+    preview: () => void,
+    reset: () => void,
+    importSchema: () => void,
+    exportSchema: () => void,
+  }
+}>()
+
 </script>
 
 <style lang="scss" scoped>
