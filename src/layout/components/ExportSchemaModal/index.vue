@@ -23,6 +23,8 @@ watch(() => schemaStore.schema, (v: any) => {
     if (v.length) {
         code.value = JSON.stringify(schemaStore.schema, null, '\t')
     }
+}, {
+    deep: true
 })
 
 defineExpose({ handleDialogShow })

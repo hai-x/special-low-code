@@ -18,6 +18,9 @@ const INIT_PROPS_MAP: any = {
         placeholder: '请输入',
         clearable: true,
         size: 'default',
+    },
+    'rate': {
+        max: 5,
     }
 }
 

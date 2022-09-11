@@ -48,6 +48,7 @@ const toolConfig = ref({
     },
     reset: () => {
         schemaStore.resetSchema()
+        schemaStore.currentComponent = null
     },
     importSchema: () => {
         (importSchemaModalRef.value as any).handleDialogShow()

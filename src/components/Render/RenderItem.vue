@@ -1,9 +1,7 @@
 <template>
-    {{props.config}}
     <div @click.stop="handleComponentActvie" :class="{'item__wrapper-active':isComponentActive}">
         <!-- 拖动手柄 -->
         <div v-show="isComponentActive" class="drag-handler">
-            <icon icon="bx:move" :inline="true" />
             <span>
                 {{ config.type }}
             </span>
@@ -14,7 +12,7 @@
                 <Delete />
             </el-icon>
         </div>
-        <component :is="config.componentName" v-bind="{...config.props,...config.event}">
+        <component :is="config.componentName" v-bind="{...config.props}">
             {{ config.type }}
         </component>
     </div>
@@ -44,8 +42,8 @@ const handleComponentActvie = () => {
 
 const removeComponent = () => {
     schemaStore.deleteComponentById()
-
 }
+
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,6 @@
 <template>
-    <Codemirror v-model="model" placeholder="Please code your schema here ..." :style="{ height: '400px' }"
-        :autofocus="true" :extensions="extensions">
+    <Codemirror v-model="model" :placeholder="placeholder" :style="{ height: '400px' }" :autofocus="true"
+        :extensions="extensions">
     </Codemirror>
 </template>
 
@@ -8,14 +8,22 @@
 import { Codemirror } from 'vue-codemirror'
 import { computed, ref } from 'vue';
 import { oneDark } from '@codemirror/theme-one-dark'
-import { json } from '@codemirror/lang-json'
 
-const props = defineProps<{
-    modelValue: any
-}>()
+const props = defineProps({
+    modelValue: {
+        type: String,
+        default: ''
+    },
+    placeholder: {
+        type: String,
+        default: 'Please code your schema here ...'
+    }
+}
+
+)
 const emits = defineEmits(['update:modelValue'])
 
-const extensions = [json(), oneDark]
+const extensions = [oneDark]
 
 const model = computed({
     get() {

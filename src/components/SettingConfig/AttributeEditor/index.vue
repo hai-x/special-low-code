@@ -1,38 +1,39 @@
 <template>
-  <div class="editor__wrapper">
-    <div>
-      <el-tag effect="light" size="large">组件属性</el-tag>
-      <FormItem v-for="(item,index) in attrFormConfig" :key="index" :model-value="attrModel[item.key]"
-        @update:model-value="updateAttrFormValue" :form-tag="item.type" :options="item.options" :title="item.title"
-        :formKey="item.key"></FormItem>
-    </div>
-    <el-divider />
-    <div>
-      <el-tag effect="light" size="large">css属性</el-tag>
-      <FormItem v-for="(item,index) in cssFormConfig" :key="index" :model-value="cssModel?.[item.key]"
-        @update:model-value="updateCssValue" :form-tag="item.type" :options="item?.options" :title="item.title"
-        :formKey="item.key"></FormItem>
-    </div>
-    <div>
+  <div class="attrEditor__wrapper" v-if="currentComponent">
+    <el-collapse v-model="activeTabName">
+      <el-collapse-item title="组件属性" name="attr">
+        <FormItem v-for="(item,index) in attrFormConfig" :key="index" :model-value="attrModel[item.key]"
+          @update:model-value="updateAttrFormValue" :form-tag="item.type" :options="item.options" :title="item.title"
+          :formKey="item.key" :valueType="item.valueType" />
+      </el-collapse-item>
+      <el-collapse-item title="css属性" name="css">
+        <FormItem v-for="(item,index) in cssFormConfig" :key="index" :model-value="cssModel?.[item.key]"
+          @update:model-value="updateCssValue" :form-tag="item.type" :options="item?.options" :title="item.title"
+          :formKey="item.key" />
+      </el-collapse-item>
+    </el-collapse>
+
+    <div class="toolbar__wrapper">
       <el-button type="danger" @click="resetProps">重置</el-button>
     </div>
   </div>
 </template>
 
 <script lang='ts' setup>
-import FormItem from './FormItem.vue';
+import FormItem from '../components/FormItem.vue';
 import { useSchema } from '~/store/schema'
 import { computed, ref } from 'vue'
-import { attributeMap, AttributeMapType, cssMap } from '~/constants/attribute/attributeMap'
+import { attributeConfig, AttributeConfigType, cssConfig } from '~/constants/config/attributeConfig'
 
+const activeTabName = ref(['attr', 'css'])
 
 const schemaStore = useSchema()
 
 const currentComponent = computed(() => schemaStore.currentComponent)
 
-const attrFormConfig = computed<AttributeMapType>(() => attributeMap[currentComponent.value?.type])
+const attrFormConfig = computed<AttributeConfigType>(() => attributeConfig[currentComponent.value?.type])
 
-const cssFormConfig = ref(cssMap)
+const cssFormConfig = ref(cssConfig)
 
 const attrModel = computed(() => currentComponent.value?.props)
 
@@ -53,5 +54,7 @@ const resetProps = () => {
 </script>
 
 <style lang="scss" scoped>
-
+.toolbar__wrapper {
+  margin-top: 20px
+}
 </style>

@@ -1,9 +1,9 @@
 import type { IAttrSchema } from '~/types'
 import { FORM_ITEM_TYPE } from '~/types'
 
-export type AttributeMapType = Record<string, IAttrSchema[]>
+export type AttributeConfigType = Record<string, IAttrSchema[]>
 
-export const cssMap: IAttrSchema[] = [
+export const cssConfig: IAttrSchema[] = [
     // 宽
     {
         type: FORM_ITEM_TYPE.INPUT,
@@ -68,11 +68,12 @@ export const cssMap: IAttrSchema[] = [
     },
 ]
 
-export const attributeMap: AttributeMapType = {
+export const attributeConfig: AttributeConfigType = {
     'button': [
         {
             type: FORM_ITEM_TYPE.SELECT,
             key: 'type',
+            valueType: 'string',
             title: '类型',
             options: [
                 {
@@ -100,6 +101,7 @@ export const attributeMap: AttributeMapType = {
         {
             type: FORM_ITEM_TYPE.SELECT,
             key: 'size',
+            valueType: 'string',
             title: '尺寸',
             options: [
                 {
@@ -121,7 +123,16 @@ export const attributeMap: AttributeMapType = {
         {
             type: FORM_ITEM_TYPE.INPUT,
             key: 'placeholder',
+            valueType: 'string',
             title: '默认值',
         },
-    ]
+    ],
+    'rate': [
+        {
+            type: FORM_ITEM_TYPE.INPUT,
+            key: 'max',
+            valueType: 'number',
+            title: '最大分值',
+        },
+    ],
 }

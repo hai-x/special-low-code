@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@codemirror/lang-json": "^6.0.0",
     "@codemirror/theme-one-dark": "^6.0.0",
     "@vitejs/plugin-vue-jsx": "^2.0.1",
     "codemirror": "^6.0.1",

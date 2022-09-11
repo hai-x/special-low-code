@@ -44,6 +44,9 @@ const assetList = [
     {
         title: '输入框', value: assetMap.input
     },
+    {
+        title: '评分', value: assetMap.rate
+    },
 ]
 </script>
 

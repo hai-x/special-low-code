@@ -1,10 +1,9 @@
 import type { Schema } from '~/types/schema'
 import useInitProps from '~/composables/useInitProps'
-
-type AssetKey = 'button' | 'input'
+import useInitEvents from '~/composables/useInitEvents'
 
 type Asset = {
-    [key in AssetKey]: Omit<Schema, 'id'>
+    [key: string]: Omit<Schema, 'id'>
 }
 
 const assetMap: Asset = {
@@ -12,14 +11,21 @@ const assetMap: Asset = {
         type: 'button',
         componentName: 'ElButton',
         props: useInitProps('button'),
-        event: {},
+        event: useInitEvents('button'),
         children: [],
     },
     input: {
         type: 'input',
         componentName: 'ElInput',
         props: useInitProps('input'),
-        event: {},
+        event: useInitEvents('input'),
+        children: [],
+    },
+    rate: {
+        type: 'rate',
+        componentName: 'ElRate',
+        props: useInitProps('rate'),
+        event: useInitEvents('rate'),
         children: [],
     }
 }

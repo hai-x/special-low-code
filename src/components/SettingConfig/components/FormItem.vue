@@ -1,7 +1,8 @@
 <template>
-    <div class='formItem_wrapper'>
-        <div class="formKey">{{title}}:</div>
-        <component :is="formTag" v-model="model" class="formValue">
+    <div class='formItem__wrapper'>
+        <div class="formItem__key">{{title}}:</div>
+        <component :is="formTag" v-model="model" class="formItem__value" v-bind="{...propAndEvent}">
+            <slot></slot>
             <template v-if="options">
                 <el-option v-for="(option,index) in options" :key="index" :label="option.label" :value="option.value">
                 </el-option>
@@ -19,15 +20,17 @@ export default defineComponent({
     // formKey -属性key
     // title -属性中文名
     // options -如果是select组件 对应渲染options子组件
-    props: ['formTag', 'title', 'modelValue', 'options', 'formKey'],
+    props: ['formTag', 'formKey', 'title', 'modelValue', 'options', 'propAndEvent', 'valueType'],
     emits: ['update:modelValue'],
     components: { ElInput, ElSelect, ElOption },
     setup(props, { emit }) {
         const model = computed({
             set(val) {
+                if (props.valueType === 'number') { emit('update:modelValue', props.formKey, +val!); return; }
                 emit('update:modelValue', props.formKey, val)
             },
             get() {
+                if (!props?.modelValue) return null
                 return props.modelValue
             }
         })
@@ -39,7 +42,7 @@ export default defineComponent({
 </script>
     
 <style scoped>
-.formItem_wrapper {
+.formItem__wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,13 +50,13 @@ export default defineComponent({
     margin-bottom: 15px;
 }
 
-.formKey {
+.formItem__key {
     font-size: 12px;
     color: gray;
     flex-basis: 100px;
 }
 
-.formValue {
+.formItem__value {
     flex: 1;
 }
 </style>
