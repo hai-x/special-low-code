@@ -19,6 +19,7 @@
     <PreviewModal v-if="PreviewModalShow" @close="PreviewModalShow=false" />
     <ImportSchemaModal v-if="ImportSchemaModalShow" @close="ImportSchemaModalShow=false" />
     <ExportSchemaModal v-if="ExportSchemaModalShow" @close="ExportSchemaModalShow=false" />
+    <CompilerModal v-if="CompilerModalShow" @close="CompilerModalShow=false" />
 </template>
  
 <script lang='ts' setup>
@@ -33,6 +34,7 @@ import SettingConfig from "../components/SettingConfig/index.vue";
 import PreviewModal from "./components/PreviewModal/index.vue";
 import ImportSchemaModal from "./components/ImportSchemaModal/index.vue";
 import ExportSchemaModal from "./components/ExportSchemaModal/index.vue";
+import CompilerModal from "./components/CompilerModal/index.vue";
 import { useSchema } from '~/store/schema';
 import { ref } from "vue";
 
@@ -41,6 +43,7 @@ const schemaStore = useSchema()
 const PreviewModalShow = ref(false)
 const ExportSchemaModalShow = ref(false)
 const ImportSchemaModalShow = ref(false)
+const CompilerModalShow = ref(false)
 
 const toolConfig = ref({
     preview: () => {
@@ -55,6 +58,9 @@ const toolConfig = ref({
     },
     exportSchema: () => {
         ExportSchemaModalShow.value = true
+    },
+    compiler: () => {
+        CompilerModalShow.value = true
     }
 
 })

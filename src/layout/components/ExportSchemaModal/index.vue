@@ -5,7 +5,7 @@
 </template>
 
 <script lang='ts' setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
 import { useSchema } from '~/store/schema';
 import CodeEditor from '~/components/CodeEditor/index.vue'
 
@@ -13,9 +13,7 @@ const emits = defineEmits(['close'])
 
 const schemaStore = useSchema()
 
-const code = ref<string>('')
-
-code.value = JSON.stringify(schemaStore.schema, null, '\t')
+const code = computed(() => JSON.stringify(schemaStore.schema, null, '\t'))
 
 </script>
 

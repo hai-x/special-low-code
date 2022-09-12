@@ -1,5 +1,5 @@
 <template>
-    <Codemirror v-model="model" :placeholder="placeholder" :style="{ height: '400px' }" :autofocus="true"
+    <Codemirror v-model="model" :placeholder="placeholder" :style="{ height: `${height}px` }" :autofocus="true"
         :extensions="extensions">
     </Codemirror>
 </template>
@@ -17,6 +17,10 @@ const props = defineProps({
     placeholder: {
         type: String,
         default: 'Please code your schema here ...'
+    },
+    height: {
+        type: String,
+        default: 400
     }
 }
 

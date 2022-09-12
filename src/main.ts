@@ -9,8 +9,6 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-console.log(app);
-
 const mount = (app: TypeApp) => app.mount('#app')
 
 const setup = (app: TypeApp, config: any[]) => {

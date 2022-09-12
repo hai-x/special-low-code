@@ -21,9 +21,7 @@ const emits = defineEmits(['close'])
 
 const schemaStore = useSchema()
 
-const schema = ref<any>([])
-
-schema.value = computed(() => schemaStore.schema.map((i: any) => {
+const schema = computed(() => schemaStore.schema.map((i: any) => {
     const { eventType, code } = i?.event
     const key = 'on' + eventType[0].toUpperCase() + eventType.slice(1)
     i.event[key] = new Function(code)
