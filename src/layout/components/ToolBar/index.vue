@@ -4,7 +4,6 @@
       <githubSvg @click="linkToGithub" class="svg__wrapper" />
     </div>
     <div class="toolbar__operate">
-      <el-button>撤消</el-button>
       <el-button @click="config?.preview">预览</el-button>
       <el-button @click="config?.reset">清空</el-button>
       <el-button @click="config?.importSchema">导入JSON</el-button>
