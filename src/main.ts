@@ -9,12 +9,14 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-const mount = (app:TypeApp)=>app.mount('#app')
+console.log(app);
 
-const setup = (app:TypeApp,config:any[])=>{
-    config.forEach(i=>app.use(i))
+const mount = (app: TypeApp) => app.mount('#app')
+
+const setup = (app: TypeApp, config: any[]) => {
+    config.forEach(i => app.use(i))
 }
 
-setup(app,[ElementPlus,Router,Pinia])
+setup(app, [ElementPlus, Router, Pinia])
 
 mount(app)

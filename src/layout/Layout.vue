@@ -7,7 +7,7 @@
                 <AssetList />
             </section>
             <!-- 中间画布 -->
-            <section class="main__center">
+            <section class="main__center" @click="inActiveCurrentComponent">
                 <Render />
             </section>
             <!-- 右侧属性列表 -->
@@ -16,9 +16,9 @@
             </section>
         </main>
     </div>
-    <PreviewModal ref="PreviewModalRef" />
-    <ImportSchemaModal ref="importSchemaModalRef" />
-    <ExportSchemaModal ref="exportSchemaModalRef" />
+    <PreviewModal v-if="PreviewModalShow" @close="PreviewModalShow=false" />
+    <ImportSchemaModal v-if="ImportSchemaModalShow" @close="ImportSchemaModalShow=false" />
+    <ExportSchemaModal v-if="ExportSchemaModalShow" @close="ExportSchemaModalShow=false" />
 </template>
  
 <script lang='ts' setup>
@@ -38,27 +38,30 @@ import { ref } from "vue";
 
 const schemaStore = useSchema()
 
-const PreviewModalRef = ref(null)
-const exportSchemaModalRef = ref(null)
-const importSchemaModalRef = ref(null)
+const PreviewModalShow = ref(false)
+const ExportSchemaModalShow = ref(false)
+const ImportSchemaModalShow = ref(false)
 
 const toolConfig = ref({
     preview: () => {
-        (PreviewModalRef.value as any).handleDialogShow()
+        PreviewModalShow.value = true
     },
     reset: () => {
         schemaStore.resetSchema()
         schemaStore.currentComponent = null
     },
     importSchema: () => {
-        (importSchemaModalRef.value as any).handleDialogShow()
+        ImportSchemaModalShow.value = true
     },
     exportSchema: () => {
-        (exportSchemaModalRef.value as any).handleDialogShow()
+        ExportSchemaModalShow.value = true
     }
 
 })
 
+const inActiveCurrentComponent = () => {
+    schemaStore.clearCurrentComponent()
+}
 
 </script>
  

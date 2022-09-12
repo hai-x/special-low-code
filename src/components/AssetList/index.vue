@@ -1,18 +1,25 @@
 <template>
+    <el-collapse v-model="activeNames">
+        <el-collapse-item title="基础组件" name="basic">
+            <draggable v-model="basicAssetList" item-key="id" :group="assetListGroup" :clone="useGenerator"
+                class="assetList__wrapper">
+                <template #item="{element}">
+                    <el-card shadow="hover" :body-style="CARD_STYLE" class="asset__wrapper">
+                        {{element.title}}
+                    </el-card>
+                </template>
+            </draggable>
+        </el-collapse-item>
+
+    </el-collapse>
     <div>
-        <draggable v-model="assetList" item-key="id" :group="assetListGroup" :clone="useGenerator"
-            class="assetList__wrapper">
-            <template #item="{element}">
-                <el-card shadow="hover" :body-style="CARD_STYLE" class="asset__wrapper">
-                    {{element.title}}
-                </el-card>
-            </template>
-        </draggable>
+
 
     </div>
 </template>
 
 <script lang='ts' setup>
+import { ref } from 'vue'
 import Draggable from 'vuedraggable'
 import { assetListGroup } from '~/constants/draggable/group'
 import useGenerator from '~/composables/useGenerator'
@@ -29,6 +36,8 @@ import assetMap from '~/constants/asset/assetMap'
 //     };
 // }
 
+const activeNames = ref<string>('basic')
+
 const CARD_STYLE = {
     width: '70px',
     'line-height': '40px',
@@ -37,7 +46,7 @@ const CARD_STYLE = {
     padding: '10px'
 }
 
-const assetList = [
+let basicAssetList = [
     {
         title: '按钮', value: assetMap.button
     },

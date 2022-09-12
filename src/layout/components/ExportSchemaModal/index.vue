@@ -1,33 +1,21 @@
 <template>
-    <el-dialog v-model="dialogVisible" title="导出JSON" width="50%" :align-center="true">
+    <el-dialog :model-value="true" title="导出JSON" width="50%" :align-center="true" @close="emits('close')">
         <CodeEditor v-model="code"></CodeEditor>
     </el-dialog>
 </template>
 
 <script lang='ts' setup>
-import { computed, ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useSchema } from '~/store/schema';
 import CodeEditor from '~/components/CodeEditor/index.vue'
 
-const dialogVisible = ref(false)
+const emits = defineEmits(['close'])
 
 const schemaStore = useSchema()
 
-const handleDialogShow = () => {
-    dialogVisible.value = true
-}
-
 const code = ref<string>('')
 
-watch(() => schemaStore.schema, (v: any) => {
-    if (v.length) {
-        code.value = JSON.stringify(schemaStore.schema, null, '\t')
-    }
-}, {
-    deep: true
-})
-
-defineExpose({ handleDialogShow })
+code.value = JSON.stringify(schemaStore.schema, null, '\t')
 
 </script>
 

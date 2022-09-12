@@ -17,13 +17,21 @@ export const useSchema = defineStore('schema', {
         initCurrentComponentEvents: undefined
     }) as IState,
     actions: {
+        // 设置Schema
+        setSchema(v: Schema[]) {
+            this.schema = v
+        },
         // 设置当前选中的组件
         setCurrentComponent(id: string) {
             this.currentComponent = this.schema.find((item: Schema) => item.id === id)
             this.initCurrentComponentProps = cloneDeep(this.currentComponent?.props)
             this.initCurrentComponentEvents = cloneDeep(this.currentComponent?.event)
         },
-        // 删除组件
+        // 清楚当前组件选中态
+        clearCurrentComponent() {
+            this.currentComponent = undefined
+        },
+        // 删除选中组件
         deleteComponentById() {
             this.schema.splice(this.schema.findIndex((item: Schema) => item.id === this.currentComponent?.id), 1)
             this.currentComponent = undefined
@@ -48,7 +56,7 @@ export const useSchema = defineStore('schema', {
         resetComponentProps() {
             this.currentComponent!.props = this.initCurrentComponentProps
         },
-        // 重置初始时间
+        // 重置初始事件
         resetComponentEvents() {
             this.currentComponent!.event = this.initCurrentComponentEvents
         },
@@ -58,10 +66,9 @@ export const useSchema = defineStore('schema', {
         },
         // 导入Schema
         importSchema(json: string) {
-            console.log(json);
-
             this.schema = JSON.parse(json)
-        }
+        },
+
     }
 
 })

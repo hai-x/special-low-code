@@ -1,7 +1,7 @@
 <template>
   <div class="toolbar__wrapper">
     <div class="toolbar__info">
-
+      <githubSvg @click="linkToGithub" class="svg__wrapper" />
     </div>
     <div class="toolbar__operate">
       <el-button>撤消</el-button>
@@ -16,6 +16,7 @@
 
 <script lang='ts' setup>
 import { ElButton } from 'element-plus';
+import githubSvg from '~/assets/githubSvg.vue'
 
 defineProps<{
   config?: {
@@ -25,6 +26,10 @@ defineProps<{
     exportSchema: () => void,
   }
 }>()
+
+const linkToGithub = () => {
+  window.open('https://github.com/haihaixhj')
+}
 
 </script>
 
@@ -37,6 +42,8 @@ defineProps<{
   display: flex;
   justify-content: space-between;
 
-  .toolbar__operate {}
+  .svg__wrapper {
+    cursor: pointer;
+  }
 }
 </style>

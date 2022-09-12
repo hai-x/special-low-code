@@ -1,6 +1,6 @@
 <template>
-    <draggable v-model="schemaStore.schema" :group="renderGroup" :animation="300" :sort="true" item-key="id"
-        element="ul" class="render__wrapper" ghost-class="ghost" handle=".drag-handler">
+    <draggable v-model="schemaModel" :group="renderGroup" :animation="300" :sort="true" item-key="id" element="ul"
+        class="render__wrapper" ghost-class="ghost" handle=".drag-handler">
         <template #item="{ element }">
             <RenderItem :config="{
                 componentName:element.componentName,
@@ -18,8 +18,18 @@ import { useSchema } from '~/store/schema'
 import { renderGroup } from '~/constants/draggable/group'
 import draggable from 'vuedraggable'
 import RenderItem from './RenderItem.vue';
+import { ref, watch } from 'vue';
 
 const schemaStore = useSchema()
+
+const schemaModel = ref([])
+
+watch(schemaModel, (v) => {
+    schemaStore.setSchema(v)
+}, {
+    deep: true
+})
+
 
 
 </script>

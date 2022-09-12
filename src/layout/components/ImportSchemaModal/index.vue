@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="dialogVisible" title="导入JSON" width="50%" :align-center="true">
+    <el-dialog :model-value="true" title="导入JSON" width="50%" :align-center="true" @close="emits('close')">
         <CodeEditor v-model="code"></CodeEditor>
         <template #footer>
             <span class="dialog-footer">
@@ -15,7 +15,8 @@ import { computed, ref, h } from 'vue';
 import { useSchema } from '~/store/schema';
 import CodeEditor from '~/components/CodeEditor/index.vue'
 import { ElMessage } from 'element-plus'
-const dialogVisible = ref(false)
+
+const emits = defineEmits(['close'])
 
 const schemaStore = useSchema()
 
@@ -32,7 +33,7 @@ const confirmImport = () => {
             message: h('p', null, '操作成功！'),
             type: 'success',
         })
-        dialogVisible.value = false
+        emits('close')
     } catch (error) {
         ElMessage({
             message: h('p', null, '操作失败，请检查错误！'),
@@ -41,12 +42,6 @@ const confirmImport = () => {
     }
 }
 
-
-const handleDialogShow = () => {
-    dialogVisible.value = true
-}
-
-defineExpose({ handleDialogShow })
 
 </script>
 
