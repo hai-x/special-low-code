@@ -10,28 +10,26 @@
       <el-button @click="config?.exportSchema">导出JSON</el-button>
       <el-button @click="config?.compiler">出码</el-button>
     </div>
-
   </div>
 </template>
 
-<script lang='ts' setup>
-import { ElButton } from 'element-plus';
-import githubSvg from '~/assets/githubSvg.vue'
+<script lang="ts" setup>
+import { ElButton } from "element-plus";
+import githubSvg from "~/assets/githubSvg.vue";
 
 defineProps<{
   config?: {
-    preview: () => void,
-    reset: () => void,
-    importSchema: () => void,
-    exportSchema: () => void,
-    compiler: () => void
-  }
-}>()
+    preview: () => void;
+    reset: () => void;
+    importSchema: () => void;
+    exportSchema: () => void;
+    compiler: () => void;
+  };
+}>();
 
 const linkToGithub = () => {
-  window.open('https://github.com/haihaixhj')
-}
-
+  window.open("https://github.com/haihaixhj");
+};
 </script>
 
 <style lang="scss" scoped>
