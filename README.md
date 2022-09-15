@@ -22,7 +22,7 @@
     children?: Schema[]
 ```
 
-左边物料区如果需要扩展组件，可以按照此协议在/src/constants/asset/assetMap.ts 中进行扩展，然后在 AssetList 组件中进行初始化接入，比如
+左边物料区如果需要扩展组件，可以按照此协议在schema子包中进行扩展，然后在 editor子包中 AssetList 组件中进行初始化接入，比如
 
 ```javascript
 button: {
@@ -50,7 +50,7 @@ button: {
     options?: string[]
 ```
 
-右边编辑器如果需要扩展组件 props 选项 或者 css 样式选项，可以按照此协议在/src/constants/config/attributeConfig.ts 中进行扩展，比如
+右边编辑器如果需要扩展组件 props 选项 或者 css 样式选项，可以按照此协议在 schema子包 中进行扩展，比如
 
 ```javascript
 'input': [
