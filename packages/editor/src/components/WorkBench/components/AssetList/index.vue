@@ -27,8 +27,8 @@
 import { ref } from "vue";
 import Draggable from "vuedraggable";
 import { assetListGroup } from "@/constants/draggable/group";
-import {useGenerator} from '@special/shared/src/index'
-import {elementConfig} from "@special/schema/src/index";
+import {useGenerator} from '@special/shared'
+import {elementConfig} from "@special/schema";
 
 // const handleChange = () => {
 //     console.log('changed');

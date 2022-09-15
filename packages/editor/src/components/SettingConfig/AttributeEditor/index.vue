@@ -41,11 +41,11 @@ import { computed, ref } from "vue";
 import {
   propsConfig,
   cssConfig,
-} from "@special/schema/src/index";
+} from "@special/schema";
 
 import type {
   IPropsConfig
-} from "@special/schema/src/index";
+} from "@special/schema";
 
 const activeTabName = ref(["attr", "css"]);
 

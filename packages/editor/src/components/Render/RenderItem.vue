@@ -23,7 +23,7 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import type { Schema } from "@special/schema/src/index";
+import type { Schema } from "@special/schema";
 import { useSchema } from "@/store/schema";
 
 const schemaStore = useSchema();

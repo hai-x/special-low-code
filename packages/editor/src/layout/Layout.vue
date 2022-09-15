@@ -4,7 +4,7 @@
     <main>
       <!-- 左侧组件列表 -->
       <section class="main__left">
-        <AssetList />
+        <WorkBench />
       </section>
       <!-- 中间画布 -->
       <section class="main__center" @click="inActiveCurrentComponent">
@@ -39,6 +39,7 @@ import ExportSchemaModal from "./components/ExportSchemaModal/index.vue";
 import CompilerModal from "./components/CompilerModal/index.vue";
 import { useSchema } from "@/store/schema";
 import { ref } from "vue";
+import WorkBench from "@/components/WorkBench/index.vue";
 
 const schemaStore = useSchema();
 
@@ -83,8 +84,7 @@ const inActiveCurrentComponent = () => {
     overflow: hidden;
 
     .main__left {
-      flex: 2;
-      padding: 15px;
+      flex-basis: 64px;
     }
 
     .main__center {
@@ -97,7 +97,7 @@ const inActiveCurrentComponent = () => {
       flex: 2;
       padding: 15px;
       padding-top: 0px;
-      overflow: scroll;
+      overflow-y: scroll;
 
       .el-select {
         width: 100%;

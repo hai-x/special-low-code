@@ -14,6 +14,7 @@ importers:
   packages/editor:
     specifiers:
       '@codemirror/theme-one-dark': ^6.0.0
+      '@element-plus/icons-vue': ^2.0.9
       '@special/compiler': workspace:^1.0.0
       '@special/schema': workspace:^1.0.0
       '@special/shared': workspace:^1.0.0
@@ -32,6 +33,7 @@ importers:
       vuedraggable: ^4.1.0
     dependencies:
       '@codemirror/theme-one-dark': 6.1.0
+      '@element-plus/icons-vue': 2.0.9_vue@3.2.39
       '@special/compiler': link:../compiler
       '@special/schema': link:../schema
       '@special/shared': link:../shared

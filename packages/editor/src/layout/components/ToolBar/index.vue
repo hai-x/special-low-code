@@ -1,6 +1,7 @@
 <template>
   <div class="toolbar__wrapper">
     <div class="toolbar__info">
+      <img src="/logo.webp" alt="Logo" class="logo__wrapper">
       <githubSvg @click="linkToGithub" class="svg__wrapper" />
     </div>
     <div class="toolbar__operate">
@@ -33,16 +34,34 @@ const linkToGithub = () => {
 </script>
 
 <style lang="scss" scoped>
+  
 .toolbar__wrapper {
   padding: 15px 10px;
-  overflow-x: auto;
+  height: 64px;
+  box-sizing: border-box;
+  overflow:hidden;
   background: #fff;
   border-bottom: 1px solid #ddd;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-
-  .svg__wrapper {
-    cursor: pointer;
+  .toolbar__info{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .svg__wrapper {
+      cursor: pointer;
+      width:20px;
+      height:20px;
+    }
+    .logo__wrapper{
+      flex:1;
+      margin-right: 10px;
+      width:50px;
+      height:50px;
+    }
   }
+  
 }
 </style>

@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
 import FormItem from "../components/FormItem.vue";
-import { FORM_ITEM_TYPE,eventConfig } from "@special/schema/src/index";
+import { FORM_ITEM_TYPE,eventConfig } from "@special/schema";
 import { useSchema } from "@/store/schema";
 import { computed, ref } from "vue";
 import CodeEditorModal from "../components/CodeEditorModal.vue";
