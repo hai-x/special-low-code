@@ -39,6 +39,19 @@ export type PropsConfig = {
 }
 
 export const cssConfig: ICssConfig = [
+    // 距离左部
+    {
+        type: FORM_ITEM_TYPE.INPUT,
+        key: 'left',
+        title: '距离左部',
+    },
+    // 距离上部
+    {
+        type: FORM_ITEM_TYPE.INPUT,
+        key: 'top',
+        title: '距离上部',
+    },
+    
     // 宽
     {
         type: FORM_ITEM_TYPE.INPUT,

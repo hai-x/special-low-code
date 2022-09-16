@@ -16,7 +16,7 @@ export default function useGenerator(field: any) {
     } } = _field
 
     const Component = {
-        id: generateId(),
+        id: `${type}_${generateId()}`,
         type,
         componentName,
         props,

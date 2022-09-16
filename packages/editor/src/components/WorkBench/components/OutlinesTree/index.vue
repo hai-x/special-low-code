@@ -1,16 +1,15 @@
 <template>
-    <div>
+    <div style="width:100%">
         <div class="tree__title">大纲树</div>
-        <el-tree :data="treeData" :props="defaultProps" @node-click="handleTreeClick"/>
+        <el-tree :data="treeData" @node-click="handleTreeClick"/>
     </div>
 </template>
 
 <script lang='ts' setup>
-import { useSchema } from '@/store/schema';
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 import { Schema } from '@special/schema';
 
-const schemaStore = useSchema()
+const schemaStore:any = inject('schemaStore')
 
 interface ITreeData {
     label:string,
@@ -21,18 +20,12 @@ interface ITreeData {
 const getTreeData = (schema:Schema[])=>{
     return schema.map((item:Schema):ITreeData=>{
         return {
-            label:item.type,
+            label:item.id,
             id:item.id,
             children:getTreeData(item?.children || []),
         }
     })
 }
-
-const defaultProps = computed(()=>({
-    label:schemaStore.currentComponent?.type,
-    id:schemaStore.currentComponent?.id,
-    children:schemaStore.currentComponent?.children,
-}))
 
 const treeData = computed(()=>{
     return getTreeData(schemaStore.schema)

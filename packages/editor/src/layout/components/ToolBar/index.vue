@@ -1,7 +1,7 @@
 <template>
   <div class="toolbar__wrapper">
     <div class="toolbar__info">
-      <img src="/logo.webp" alt="Logo" class="logo__wrapper">
+      <!-- <img src="/logo.webp" alt="Logo" class="logo__wrapper"> -->
       <githubSvg @click="linkToGithub" class="svg__wrapper" />
     </div>
     <div class="toolbar__operate">
@@ -53,11 +53,11 @@ const linkToGithub = () => {
     .svg__wrapper {
       cursor: pointer;
       width:20px;
+      margin-left: 15px;
       height:20px;
     }
     .logo__wrapper{
       flex:1;
-      margin-right: 10px;
       width:50px;
       height:50px;
     }

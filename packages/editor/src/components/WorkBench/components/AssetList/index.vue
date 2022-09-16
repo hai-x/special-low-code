@@ -1,23 +1,18 @@
 <template>
   <el-collapse v-model="activeNames">
     <el-collapse-item title="基础组件" name="basic">
-      <draggable
-        v-model="basicAssetList"
-        item-key="id"
-        :group="assetListGroup"
-        :clone="useGenerator"
-        class="assetList__wrapper"
-      >
-        <template #item="{ element }">
-          <el-card
-            shadow="hover"
-            :body-style="CARD_STYLE"
-            class="asset__wrapper"
-          >
-            {{ element.title }}
-          </el-card>
-        </template>
-      </draggable>
+      <div class="collapse__wrapper">
+        <el-card
+          v-for="(element, index) in basicAssetList"
+          :key="index"
+          shadow="hover"
+          class="asset__wrapper"
+          :draggable="true"
+          @dragstart.native="dragstartHandler($event, element)"
+        >
+          {{ element.title }}
+        </el-card>
+      </div>
     </el-collapse-item>
   </el-collapse>
   <div></div>
@@ -25,31 +20,10 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import Draggable from "vuedraggable";
-import { assetListGroup } from "@/constants/draggable/group";
-import {useGenerator} from '@special/shared'
-import {elementConfig} from "@special/schema";
-
-// const handleChange = () => {
-//     console.log('changed');
-// }
-
-// const getComponentData = () => {
-//     return {
-//         onChange: handleChange,
-//         wrap: true,
-//     };
-// }
+import { useGenerator } from "@special/shared";
+import { elementConfig } from "@special/schema";
 
 const activeNames = ref<string>("basic");
-
-const CARD_STYLE = {
-  width: "70px",
-  "line-height": "40px",
-  "text-align": "center",
-  height: "40px",
-  padding: "10px",
-};
 
 let basicAssetList = [
   {
@@ -65,16 +39,26 @@ let basicAssetList = [
     value: elementConfig.rate,
   },
 ];
+
+const dragstartHandler = (e: DragEvent, ELEMENT_INFO: any) => {
+  e.dataTransfer?.setData(
+    "ELEMENT_INFO",
+    JSON.stringify(useGenerator(ELEMENT_INFO))
+  );
+};
 </script>
 
 <style lang="scss" scoped>
-.assetList__wrapper {
-  display: flex;
-}
-
 .asset__wrapper {
   margin: 10px;
   color: gray;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.collapse__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 </style>

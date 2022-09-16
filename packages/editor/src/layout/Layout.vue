@@ -7,8 +7,8 @@
         <WorkBench />
       </section>
       <!-- 中间画布 -->
-      <section class="main__center" @click="inActiveCurrentComponent">
-        <Render />
+      <section class="main__center">
+        <Stage />
       </section>
       <!-- 右侧属性列表 -->
       <section class="main__right">
@@ -30,8 +30,7 @@
 
 <script lang="ts" setup>
 import ToolBar from "./components/ToolBar/index.vue";
-import AssetList from "@/components/AssetList/index.vue";
-import Render from "@/components/Render/index.vue";
+import Stage from "@/components/Stage/index.vue";
 import SettingConfig from "../components/SettingConfig/index.vue";
 import PreviewModal from "./components/PreviewModal/index.vue";
 import ImportSchemaModal from "./components/ImportSchemaModal/index.vue";
@@ -54,7 +53,7 @@ const toolConfig = ref({
   },
   reset: () => {
     schemaStore.resetSchema();
-    schemaStore.currentComponent = null;
+    schemaStore.currentComponent = null!;
   },
   importSchema: () => {
     ImportSchemaModalShow.value = true;
@@ -67,9 +66,6 @@ const toolConfig = ref({
   },
 });
 
-const inActiveCurrentComponent = () => {
-  schemaStore.clearCurrentComponent();
-};
 </script>
 
 <style lang="scss">
@@ -90,11 +86,11 @@ const inActiveCurrentComponent = () => {
     .main__center {
       background: #f5f5f5;
       flex: 4;
-      padding: 15px;
+      position:relative
     }
 
     .main__right {
-      flex: 2;
+      flex-basis: 300px;
       padding: 15px;
       padding-top: 0px;
       overflow-y: scroll;

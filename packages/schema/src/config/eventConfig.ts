@@ -15,9 +15,8 @@ export interface IEventConfig {
     slot?:any
     
 }
-type EventConfig = IEventConfig[]
 
-export const eventConfig: EventConfig = [
+export const eventConfig: Array<IEventConfig> = [
     // 事件类型
     {
         type: FORM_ITEM_TYPE.SELECT,

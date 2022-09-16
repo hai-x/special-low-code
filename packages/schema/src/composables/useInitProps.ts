@@ -1,31 +1,59 @@
-const initStyle = {
-    width: '',
-    height: '',
-    borderWidth: '',
-    borderRaduis: '',
-    fontSize: '',
-    fontWeight: '',
-    lineHeight: '',
-    textAlign: 'left'
-}
+
+// const initStyle = {
+//     width: '',
+//     height: '',
+//     borderWidth: '',
+//     borderRaduis: '',
+//     fontSize: '',
+//     fontWeight: '',
+//     lineHeight: '',
+//     textAlign: 'left',
+//     position: 'absolute'
+// }
 
 const INIT_PROPS_MAP: any = {
     'button': {
         size: 'default',
         type: 'primary',
+        style: {
+            width: '150px',
+            height: '70px',
+            borderWidth: '',
+            borderRaduis: '',
+            fontSize: '',
+            fontWeight: '',
+            lineHeight: '',
+            position: 'absolute'
+        }
     },
     'input': {
         placeholder: '请输入',
         clearable: true,
         size: 'default',
+        style: {
+            width: '250px',
+            height: '50px',
+            borderWidth: '',
+            borderRaduis: '',
+            fontSize: '',
+            fontWeight: '',
+            lineHeight: '',
+            position: 'absolute'
+        }
     },
     'rate': {
         max: 5,
+        style: {
+            width: '150px',
+            height: '50px',
+            borderWidth: '',
+            borderRaduis: '',
+            fontSize: '',
+            fontWeight: '',
+            lineHeight: '',
+            position: 'absolute'
+        }
     }
-}
-
-for (let k of Object.keys(INIT_PROPS_MAP)) {
-    (INIT_PROPS_MAP[k] as any).style = { ...initStyle }
 }
 
 

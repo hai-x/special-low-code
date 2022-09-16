@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Schema } from '../types';
+import type { Schema } from '@special/schema';
 import { cloneDeep } from 'lodash-es'
 
 interface IState {
@@ -20,6 +20,9 @@ export const useSchema = defineStore('schema', {
         // 设置Schema
         setSchema(v: Schema[]) {
             this.schema = v
+        },
+        pushComponentToSchema(v:Schema){
+            this.schema.push(v)
         },
         // 设置当前选中的组件
         setCurrentComponent(id: string) {
@@ -68,6 +71,7 @@ export const useSchema = defineStore('schema', {
         importSchema(json: string) {
             this.schema = JSON.parse(json)
         },
+        
 
     }
 

@@ -4,7 +4,11 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
 import Router from './router'
-import Pinia from './store'
+import { createPinia } from 'pinia'
+
+const Store = createPinia()
+
+
 import App from './App.vue'
 
 const app = createApp(App)
@@ -15,6 +19,7 @@ const setup = (app: TypeApp, config: any[]) => {
     config.forEach(i => app.use(i))
 }
 
-setup(app, [ElementPlus, Router, Pinia])
+
+setup(app, [ElementPlus, Router, Store])
 
 mount(app)

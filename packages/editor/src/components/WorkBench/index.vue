@@ -2,18 +2,24 @@
     <div class="workbench__wrapper">
         <div class="menu__wrapper">
             <el-menu class="el-menu-vertical-demo" :collapse="true">
-            <el-menu-item @click="handleClick('asset')">
-                <el-icon>
-                    <Star />
-                </el-icon>
-                <template #title>物料区</template>
-            </el-menu-item>
-            <el-menu-item @click="handleClick('outlines')">
-                <el-icon>
-                    <Document />
-                </el-icon>
-                <template #title>大纲树</template>
-            </el-menu-item>
+            <div @click="handleClick('asset')">
+                    <el-menu-item @click="()=>true">
+                        <el-icon>
+                            <Star />
+                        </el-icon>
+                        <template #title>物料区</template>
+                    </el-menu-item>
+            </div>
+            
+            <div @click="handleClick('outlines')">
+                <el-menu-item @click="()=>true">
+                    <el-icon>
+                        <Document />
+                    </el-icon>
+                    <template #title>大纲树</template>
+                </el-menu-item>
+            </div>
+            
         </el-menu>
         </div>
         <div class="list__wrapper" v-if="currentShow === 'asset'">
@@ -32,7 +38,7 @@ import {Document,Star} from '@element-plus/icons-vue'
 import { ref } from 'vue';
 import OutlinesTree from './components/OutlinesTree/index.vue';
 
-const currentShow = ref<string>('')
+const currentShow = ref<string>('asset')
 
 const handleClick = (tabName:string)=>{
     if(currentShow.value === tabName){
@@ -40,7 +46,7 @@ const handleClick = (tabName:string)=>{
     }else{
         currentShow.value = tabName;
     }
-
+    return true
 }
 </script>
 
@@ -60,10 +66,13 @@ const handleClick = (tabName:string)=>{
     }
     .tree__wrapper{
         padding:10px;
-        width:100px;
+        width:200px;
     }
 }
 :deep(.el-menu--collapse){
     height:100%
+}
+:deep(.el-menu-item.is-active){
+   color:black
 }
 </style>
