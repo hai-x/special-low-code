@@ -5,11 +5,11 @@
       <githubSvg @click="linkToGithub" class="svg__wrapper" />
     </div>
     <div class="toolbar__operate">
-      <el-button @click="config?.preview">预览</el-button>
-      <el-button @click="config?.reset">清空</el-button>
-      <el-button @click="config?.importSchema">导入JSON</el-button>
-      <el-button @click="config?.exportSchema">导出JSON</el-button>
-      <el-button @click="config?.compiler">出码</el-button>
+      <el-button @click="config?.preview" class="btn__wrap">预览</el-button>
+      <el-button @click="config?.reset" class="btn__wrap">清空</el-button>
+      <el-button @click="config?.importSchema" class="btn__wrap">导入JSON</el-button>
+      <el-button @click="config?.exportSchema" class="btn__wrap">导出JSON</el-button>
+      <el-button @click="config?.compiler" class="btn__wrap">出码</el-button>
     </div>
   </div>
 </template>
@@ -63,5 +63,8 @@ const linkToGithub = () => {
     }
   }
   
+}
+.btn__wrap{
+  margin-right:12px
 }
 </style>

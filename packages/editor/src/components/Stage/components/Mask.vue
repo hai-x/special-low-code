@@ -91,7 +91,7 @@ const removeComponent = () => {
   width: 100%;
   position: absolute;
   box-sizing: border-box;
-  z-index: 100;
+  z-index: 300;
 }
 .frame__wrapper-active {
   outline: 1px solid skyblue;

@@ -16,9 +16,9 @@ const schemaStore: any = inject("schemaStore");
 
 <style lang="scss" scoped>
 .render__wrapper {
+  z-index: 200;
   height: 100%;
   width: 100%;
-  background-color: rgb(243, 241, 241);
   position: absolute;
   box-sizing: border-box;
   overflow: hidden;

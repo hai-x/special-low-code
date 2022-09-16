@@ -72,3 +72,7 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+.el-button + .el-button {
+  margin-left: 0px !important; 
+}

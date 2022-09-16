@@ -1,5 +1,6 @@
 <template>
   <div class="stage__wrapper">
+    <Grid />
     <Render />
     <Mask />
   </div>
@@ -8,6 +9,7 @@
 <script lang="ts" setup>
 import Render from "./components/Render.vue";
 import Mask from "./components/Mask.vue";
+import Grid from "./components/Grid.vue";
 </script>
 
 <style lang="scss" scoped>
