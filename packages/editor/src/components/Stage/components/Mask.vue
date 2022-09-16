@@ -18,11 +18,7 @@
       :class="{ 'frame__wrapper-active': activeFrame?.id }"
     >
       <!-- 拖动手柄 -->
-      <div
-        class="drag-handler"
-        :draggable="true"
-        @dragend="dragendHandler"
-      >
+      <div class="drag-handler" :draggable="true" @dragend="dragendHandler">
         <span> {{ activeFrame.id }} </span>
       </div>
       <!-- 操作区域 -->
@@ -44,14 +40,24 @@ import useDrag from "@/composables/useDrag";
 
 const schemaStore: any = inject("schemaStore");
 
-const activeFrame = computed<any>(()=>({
+const activeFrame = computed<any>(() => {
+  let style = schemaStore.currentComponent?.props.style;
+  return {
     id: schemaStore.currentComponent?.id,
-    style: schemaStore.currentComponent?.props.style,
-}));
+    style: {
+      width: style?.width,
+      height: style?.height,
+      top: style?.top,
+      bottom: style?.bottom,
+      left: style?.left,
+      right: style?.right,
+    },
+  };
+});
 
 const { dragoverHandler, dragenterHandler, dropHandler } = useDrop(schemaStore);
 
-const { dragendHandler } = useDrag(schemaStore,activeFrame);
+const { dragendHandler } = useDrag(schemaStore, activeFrame);
 
 const maskDomConfig = computed(() => {
   return schemaStore.schema?.map((i: Schema) => {
@@ -69,9 +75,7 @@ const maskDomConfig = computed(() => {
 
 const activeOrInActive = (e: any) => {
   if (e.target.id) {
-    let {
-      id,
-    } = e.target;
+    let { id } = e.target;
     schemaStore.setCurrentComponent(id);
   } else {
     schemaStore.clearCurrentComponent();
@@ -107,8 +111,8 @@ const removeComponent = () => {
     background-color: skyblue;
     cursor: move;
     top: -22px;
-    height:22px;
-    transform: translate3d(0,0,0);
+    height: 22px;
+    transform: translate3d(0, 0, 0);
   }
 
   .item-action {
@@ -122,7 +126,7 @@ const removeComponent = () => {
     width: 20px;
     height: 20px;
     display: flex;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
   }
 }
 </style>

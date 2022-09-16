@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm -C packages/editor dev",
+    "build:editor": "pnpm -C packages/editor build",
     "clean": "rimraf node_modules **/node_modules **/**/node_modules",
     "bootstrap": "pnpm i",
     "test": "echo \"Error: no test specified\" && exit 1"
