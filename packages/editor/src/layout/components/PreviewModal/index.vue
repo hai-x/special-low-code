@@ -23,12 +23,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
-import { useSchema } from "@/store/schema";
+import { computed, ref,inject } from "vue";
 
 const emits = defineEmits(["close"]);
 
-const schemaStore = useSchema();
+const schemaStore:any = inject('schemaStore');
 
 const schema = computed(() =>
   schemaStore.schema.map((i: any) => {

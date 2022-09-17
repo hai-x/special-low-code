@@ -12,7 +12,7 @@
       </section>
       <!-- 右侧属性列表 -->
       <section class="main__right">
-        <SettingConfig />
+        <Config />
       </section>
     </main>
   </div>
@@ -30,17 +30,16 @@
 
 <script lang="ts" setup>
 import ToolBar from "./components/ToolBar/index.vue";
-import Stage from "@/components/Stage/index.vue";
-import SettingConfig from "../components/SettingConfig/index.vue";
+import Stage from "./Stage/index.vue";
+import Config from "./Config/index.vue";
 import PreviewModal from "./components/PreviewModal/index.vue";
 import ImportSchemaModal from "./components/ImportSchemaModal/index.vue";
 import ExportSchemaModal from "./components/ExportSchemaModal/index.vue";
 import CompilerModal from "./components/CompilerModal/index.vue";
-import { useSchema } from "@/store/schema";
-import { ref } from "vue";
-import WorkBench from "@/components/WorkBench/index.vue";
+import { ref,inject } from "vue";
+import WorkBench from "./WorkBench/index.vue";
 
-const schemaStore = useSchema();
+const schemaStore:any = inject('schemaStore');
 
 const PreviewModalShow = ref(false);
 const ExportSchemaModalShow = ref(false);

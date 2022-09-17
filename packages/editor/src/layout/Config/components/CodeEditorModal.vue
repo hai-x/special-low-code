@@ -16,8 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, h } from "vue";
-import { useSchema } from "@/store/schema";
+import { ref, h } from "vue";
 import CodeEditor from "@/components/CodeEditor/index.vue";
 import { ElMessage } from "element-plus";
 

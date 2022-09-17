@@ -11,14 +11,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { useSchema } from "@/store/schema";
+import { ref,inject } from "vue";
 import CodeEditor from "@/components/CodeEditor/index.vue";
-import {Compiler} from "../../../../../compiler/src/index";
+import {Compiler} from "@special/compiler";
 
 const emits = defineEmits(["close"]);
 
-const schemaStore = useSchema();
+const schemaStore:any = inject('schemaStore')
 
 const code = ref<string>("");
 code.value = new Compiler(schemaStore.schema).vueSfc;

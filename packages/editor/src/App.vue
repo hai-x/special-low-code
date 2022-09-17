@@ -7,7 +7,6 @@
 import {useSchema} from './store/schema'
 
 const schemaStore = useSchema()
-// window.schemaStore = schemaStore 
 
 provide('schemaStore',schemaStore)
 

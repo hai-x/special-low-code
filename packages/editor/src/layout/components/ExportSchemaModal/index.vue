@@ -11,13 +11,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
-import { useSchema } from "@/store/schema";
+import { computed,inject } from "vue";
 import CodeEditor from "@/components/CodeEditor/index.vue";
 
 const emits = defineEmits(["close"]);
 
-const schemaStore = useSchema();
+const schemaStore:any = inject('schemaStore');
 
 const code = computed(() => JSON.stringify(schemaStore.schema, null, "\t"));
 </script>

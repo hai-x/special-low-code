@@ -36,8 +36,7 @@
 
 <script lang="ts" setup>
 import FormItem from "../components/FormItem.vue";
-import { useSchema } from "@/store/schema";
-import { computed, ref } from "vue";
+import { computed, ref,inject } from "vue";
 import {
   propsConfig,
   cssConfig,
@@ -49,7 +48,7 @@ import type {
 
 const activeTabName = ref(["attr", "css"]);
 
-const schemaStore = useSchema();
+const schemaStore:any = inject('schemaStore');
 
 const currentComponent = computed(() => schemaStore.currentComponent);
 

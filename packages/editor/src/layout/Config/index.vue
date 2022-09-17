@@ -11,12 +11,10 @@
 
 <script lang="ts" setup>
 import AttributeEditor from "./AttributeEditor/index.vue";
-
-import { useSchema } from "@/store/schema";
-import { computed } from "vue";
+import { computed,inject } from "vue";
 import EventEditor from "./EventEditor/index.vue";
 
-const schemaStore = useSchema();
+const schemaStore:any = inject('schemaStore');
 
 const activeName = computed({
   get() {
