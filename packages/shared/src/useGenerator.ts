@@ -6,14 +6,13 @@ import { cloneDeep } from 'lodash-es'
  */
 export default function useGenerator(field: any) {
     const _field = cloneDeep(field)
-
-    const { value: {
+    const {
         type,
         componentName,
         props,
         children,
         event,
-    } } = _field
+    } = _field
 
     const Component = {
         id: `${type}_${generateId()}`,

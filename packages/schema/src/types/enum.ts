@@ -4,3 +4,8 @@ export enum FORM_ITEM_TYPE {
     INPUT = 'ElInput',
     BUTTON = 'ElButton'
 }
+
+export enum ELEMENT_TYPE {
+    BASIC = 'basic',
+    LAYOUT = 'layout'
+}

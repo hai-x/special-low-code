@@ -1,8 +1,8 @@
 <template>
-  <div class="toolbar__wrapper">
+  <div class="toolbar__wrap">
     <div class="toolbar__info">
-      <!-- <img src="/logo.webp" alt="Logo" class="logo__wrapper"> -->
-      <githubSvg @click="linkToGithub" class="svg__wrapper" />
+      <!-- <img src="/logo.webp" alt="Logo" class="logo__wrap"> -->
+      <githubSvg @click="linkToGithub" class="svg__wrap" />
     </div>
     <div class="toolbar__operate">
       <el-button @click="config?.preview" class="btn__wrap">预览</el-button>
@@ -35,7 +35,7 @@ const linkToGithub = () => {
 
 <style lang="scss" scoped>
   
-.toolbar__wrapper {
+.toolbar__wrap {
   padding: 15px 10px;
   height: 64px;
   box-sizing: border-box;
@@ -50,13 +50,13 @@ const linkToGithub = () => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .svg__wrapper {
+    .svg__wrap {
       cursor: pointer;
       width:20px;
       margin-left: 15px;
       height:20px;
     }
-    .logo__wrapper{
+    .logo__wrap{
       flex:1;
       width:50px;
       height:50px;

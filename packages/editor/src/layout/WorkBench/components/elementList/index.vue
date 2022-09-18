@@ -1,16 +1,20 @@
 <template>
-  <el-collapse v-model="activeNames">
-    <el-collapse-item title="基础组件" name="basic">
-      <div class="collapse__wrapper">
+  <el-collapse :model-value="activeNames">
+    <el-collapse-item
+      v-for="(list, key) in elementList"
+      :title="key"
+      :name="key"
+    >
+      <div class="collapse__wrap">
         <el-card
-          v-for="(element, index) in basicAssetList"
-          :key="index"
+          v-for="(element, key) in list"
+          :key="key"
           shadow="hover"
-          class="asset__wrapper"
+          class="asset__wrap"
           :draggable="true"
           @dragstart.native="dragstartHandler($event, element)"
         >
-          {{ element.title }}
+          {{ element.name }}
         </el-card>
       </div>
     </el-collapse-item>
@@ -21,24 +25,9 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useGenerator } from "@special/shared";
-import { elementConfig } from "@special/schema";
+import { elementList } from "@special/schema";
 
-const activeNames = ref<string>("basic");
-
-let basicAssetList = [
-  {
-    title: "按钮",
-    value: elementConfig.button,
-  },
-  {
-    title: "输入框",
-    value: elementConfig.input,
-  },
-  {
-    title: "评分",
-    value: elementConfig.rate,
-  },
-];
+const activeNames = ref<string[]>(["basic", "layout"]);
 
 const dragstartHandler = (e: DragEvent, ELEMENT_INFO: any) => {
   e.dataTransfer?.setData(
@@ -49,7 +38,7 @@ const dragstartHandler = (e: DragEvent, ELEMENT_INFO: any) => {
 </script>
 
 <style lang="scss" scoped>
-.asset__wrapper {
+.asset__wrap {
   margin: 10px;
   color: gray;
   font-weight: 600;
@@ -57,7 +46,7 @@ const dragstartHandler = (e: DragEvent, ELEMENT_INFO: any) => {
   align-items: center;
   justify-content: center;
 }
-.collapse__wrapper {
+.collapse__wrap {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }

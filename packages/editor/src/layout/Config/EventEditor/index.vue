@@ -1,21 +1,21 @@
 <template>
-  <div class="eventEditor__wrapper" v-if="currentComponent">
+  <div class="eventEditor__wrap" v-if="currentComponent">
     <div>
       <FormItem
         v-for="(item, index) in finalEventConfig"
         :key="index"
-        :model-value="eventModel[item?.key]"
+        :model-value="eventModel?.[item?.key]"
         @update:model-value="updateEventValue"
-        :form-tag="item.type"
+        :form-tag="item?.type"
         :options="item?.options"
-        :title="item.title"
+        :title="item?.title"
         :formKey="item?.key"
         :propAndEvent="item?.props"
       >
         {{ item?.slot }}
       </FormItem>
     </div>
-    <div class="toolbar__wrapper">
+    <div class="toolbar__wrap">
       <el-button type="danger" @click="resetEvent">重置</el-button>
     </div>
     <CodeEditorModal ref="CodeEditorModalRef" @confirm="confirmCodeEdit" />

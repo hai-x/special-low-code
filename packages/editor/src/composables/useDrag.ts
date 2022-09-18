@@ -9,7 +9,7 @@ export default function useDrag(store: any, activeFrame: Ref<Record<string, any>
         const curComponentWidth = parseInt(activeFrame.value.style.width)
         const curComponentHeight = parseInt(activeFrame.value.style.height)
 
-        const { x, y, width, height } = $(".stage__wrapper")!.getBoundingClientRect();
+        const { x, y, width, height } = $(".stage__wrap")!.getBoundingClientRect();
 
         let left, top, right, bottom;
 

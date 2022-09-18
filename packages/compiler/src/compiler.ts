@@ -49,7 +49,7 @@ export default class Compiler {
         const { style } = props
 
         const propsStr = parseProp(props)
-        const classStr = `class="${id.split('-')[0]}"`
+        const classStr = `class="${id}"`
         cssScript?.push(this.handleCssStyle(id, style))
 
         const eventKey = 'on' + event?.eventType?.[0]?.toUpperCase() + event?.eventType?.slice(1)

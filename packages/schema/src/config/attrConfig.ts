@@ -67,8 +67,8 @@ export const cssConfig: ICssConfig = [
     // 边框宽度
     {
         type: FORM_ITEM_TYPE.INPUT,
-        key: 'borderWidth',
-        title: '边框宽度',
+        key: 'border',
+        title: '边框',
     },
     // 边框圆角半径
     {

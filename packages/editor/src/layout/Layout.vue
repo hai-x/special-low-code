@@ -1,7 +1,7 @@
 <template>
-  <div class="layout__wrapper">
+  <div class="layout__wrap">
     <ToolBar :config="toolConfig" />
-    <main>
+    <main class="main__wrap">
       <!-- 左侧组件列表 -->
       <section class="main__left">
         <WorkBench />
@@ -36,10 +36,18 @@ import PreviewModal from "./components/PreviewModal/index.vue";
 import ImportSchemaModal from "./components/ImportSchemaModal/index.vue";
 import ExportSchemaModal from "./components/ExportSchemaModal/index.vue";
 import CompilerModal from "./components/CompilerModal/index.vue";
-import { ref,inject } from "vue";
+import { ref, provide } from "vue";
 import WorkBench from "./WorkBench/index.vue";
+import { useSchema } from "@/store/schema";
 
-const schemaStore:any = inject('schemaStore');
+const schemaStore = useSchema();
+provide("schemaStore", schemaStore);
+
+const mode = ref<"phone" | "pc">("phone");
+provide("mode", mode);
+provide("handleSwitchMode", (v: "phone" | "pc") => {
+  mode.value = v;
+});
 
 const PreviewModalShow = ref(false);
 const ExportSchemaModalShow = ref(false);
@@ -64,28 +72,29 @@ const toolConfig = ref({
     CompilerModalShow.value = true;
   },
 });
-
 </script>
 
 <style lang="scss">
-.layout__wrapper {
+.layout__wrap {
   height: 100vh;
   width: 100vw;
   background: #fff;
 
-  main {
+  .main__wrap {
     height: calc(100% - 64px);
     display: flex;
-    overflow: hidden;
+    overflow: scroll;
 
     .main__left {
       flex-basis: 64px;
     }
 
     .main__center {
-      background: #f5f5f5;
       flex: 4;
-      position:relative
+      position: relative;
+      min-width: 390px;
+      border-right: solid 1px var(--el-menu-border-color);
+      border-left: solid 1px var(--el-menu-border-color);
     }
 
     .main__right {

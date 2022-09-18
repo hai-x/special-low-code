@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx';
 
 import { URL, fileURLToPath } from 'node:url'
 
@@ -7,7 +8,7 @@ import { URL, fileURLToPath } from 'node:url'
 export default defineConfig({
   base: './',
   plugins: [
-    vue(),
+    vue(), vueJsx()
   ],
   resolve: {
     alias: {
@@ -15,6 +16,6 @@ export default defineConfig({
     }
   },
   server: {
-    port: 8888
+    port: 9000
   }
 })

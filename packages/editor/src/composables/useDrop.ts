@@ -17,7 +17,7 @@ export default function useDrop(store: any) {
 
             const { clientX, clientY } = e;
 
-            const { x, y } = $(".stage__wrapper")!.getBoundingClientRect();
+            const { x, y } = $(".stage__wrap")!.getBoundingClientRect();
 
             const translateX = Math.floor(clientX - x);
             const translateY = Math.floor(clientY - y);

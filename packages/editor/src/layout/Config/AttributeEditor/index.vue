@@ -1,5 +1,5 @@
 <template>
-  <div class="attrEditor__wrapper" v-if="currentComponent">
+  <div class="attrEditor__wrap" v-if="currentComponent">
     <el-collapse v-model="activeTabName">
       <el-collapse-item title="组件属性" name="attr">
         <FormItem
@@ -28,7 +28,7 @@
       </el-collapse-item>
     </el-collapse>
 
-    <div class="toolbar__wrapper">
+    <div class="toolbar__wrap">
       <el-button type="danger" @click="resetProps">重置</el-button>
     </div>
   </div>
@@ -76,7 +76,7 @@ const resetProps = () => {
 </script>
 
 <style lang="scss" scoped>
-.toolbar__wrapper {
+.toolbar__wrap {
   margin-top: 20px;
 }
 </style>

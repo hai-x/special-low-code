@@ -1,6 +1,8 @@
 export type Schema = {
     // 字段 id 用于唯一标识字段
-    id: string
+    id?: string
+    // 组件名称
+    name?: string
     // 组件类型
     type: string
     // 对应的 element-plus 组件名

@@ -43,7 +43,7 @@ const model = computed({
 </script>
 
 <style lang="scss" scoped>
-.editor__wrapper {
+.editor__wrap {
   height: 600px;
 }
 </style>

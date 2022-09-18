@@ -1,5 +1,5 @@
 <template>
-  <div class="formItem__wrapper">
+  <div class="formItem__wrap">
     <div class="formItem__key">{{ title }}:</div>
     <component
       :is="formTag"
@@ -64,7 +64,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.formItem__wrapper {
+.formItem__wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
