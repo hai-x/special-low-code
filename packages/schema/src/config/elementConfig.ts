@@ -36,43 +36,25 @@ const basicElementList: IElementList = {
 const layoutElementList: IElementList = {
     'row': {
         type: 'row',
-        name: '栏',
+        name: 'flex布局',
         componentName: 'ElRow',
         props: useInitProps(ELEMENT_TYPE.LAYOUT, 'row'),
         event: useInitEvents('row'),
         children: [
             {
                 type: 'col',
-                name: '栏',
+                name: '列',
                 componentName: 'ElCol',
                 props: useInitProps(ELEMENT_TYPE.LAYOUT, 'col'),
                 event: useInitEvents('row'),
-                children: [
-                    {
-                        type: 'button',
-                        name: '按钮',
-                        componentName: 'ElButton',
-                        props: useInitProps(ELEMENT_TYPE.BASIC, 'button'),
-                        event: useInitEvents('button'),
-                        children: [],
-                    }
-                ],
+                children: [],
             }, {
                 type: 'col',
                 name: '列',
                 componentName: 'ElCol',
                 props: useInitProps(ELEMENT_TYPE.LAYOUT, 'col'),
                 event: useInitEvents('row'),
-                children: [
-                    {
-                        type: 'button',
-                        name: '按钮',
-                        componentName: 'ElButton',
-                        props: useInitProps(ELEMENT_TYPE.BASIC, 'button'),
-                        event: useInitEvents('button'),
-                        children: [],
-                    }
-                ],
+                children: [],
             }
         ],
     },

@@ -59,14 +59,14 @@ const INIT_PROPS_MAP: any = {
     [ELEMENT_TYPE.LAYOUT]: {
         row: {
             style:{
-                width: '375px',
+                width: '100%',
                 height: '75px',
                 border: '',
                 borderRaduis: '',
                 fontSize: '',
                 fontWeight: '',
                 lineHeight: '',
-                
+                position:'absolute',
             }
         },
         col:{

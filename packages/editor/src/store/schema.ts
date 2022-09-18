@@ -21,8 +21,13 @@ export const useSchema = defineStore('schema', {
         setSchema(v: Schema[]) {
             this.schema = v
         },
-        pushComponentToSchema(v:Schema){
+        // schema增加组件（宏）
+        pushComponentToSchema(v: Schema) {
             this.schema.push(v)
+        },
+        // schema增加组件（微）
+        pushComponentToItem(v: Schema,id:string,columnIndex:number) {
+            this.schema.find(i => i.id === id)?.children?.[columnIndex].children!.push(v)
         },
         // 设置当前选中的组件
         setCurrentComponent(id: string) {
@@ -40,7 +45,7 @@ export const useSchema = defineStore('schema', {
             this.currentComponent = undefined
         },
         // 更新组件的属性
-        updateComponentProps(type: 'attr' | 'css' | 'event', key: string, value: string) {
+        updateComponentProps(type: 'attr' | 'css' | 'event', key: string, value: any) {
             switch (type) {
                 case 'attr':
                     this.currentComponent!.props[key] = value
@@ -71,8 +76,6 @@ export const useSchema = defineStore('schema', {
         importSchema(json: string) {
             this.schema = JSON.parse(json)
         },
-        
-
     }
 
 })
