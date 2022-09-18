@@ -13,22 +13,10 @@
         'preview__wrap-phone': isPhoneMode,
       }"
     >
-      <template v-if="schema.length">
+      <template v-if="schemaStore.schema.length">
         <div style="position: relative">
-          <template v-for="item in schema" :key="index">
-            <component
-              :is="item.componentName"
-              v-bind="{ ...item.props, ...item.event }"
-            >
-              {{ item.type }}
-              <component
-                v-for="child in item?.children"
-                :is="child.componentName"
-                v-bind="{ ...child.props, ...child.event }"
-              >
-                {{ item.type }}
-              </component>
-            </component>
+          <template v-for="item in schemaStore.schema" :key="index">
+            <RenderItem :component="item"></RenderItem>
           </template>
         </div>
       </template>
@@ -41,23 +29,13 @@
 
 <script lang="ts" setup>
 import { computed, inject, Ref } from "vue";
+import RenderItem from "@/components/RenderItem/index.vue";
 
 const emits = defineEmits(["close"]);
 
 const schemaStore: any = inject("schemaStore");
 const mode: Ref<"phone" | "pc"> | undefined = inject("mode");
 const isPhoneMode = computed(() => mode?.value === "phone");
-
-const schema = computed(() =>
-  schemaStore.schema.map((i: any) => {
-    if (i.event?.eventType && i.event?.code) {
-      const { eventType, code } = i;
-      const key = "on" + eventType[0].toUpperCase() + eventType.slice(1);
-      i.event[key] = new Function(code);
-    }
-    return i;
-  })
-);
 </script>
 
 <style lang="scss" scoped>
