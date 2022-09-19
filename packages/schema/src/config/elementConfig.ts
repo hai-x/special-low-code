@@ -33,7 +33,7 @@ const basicElementList: IElementList = {
         children: [],
     }
 }
-const layoutElementList: IElementList = {
+export const layoutElementList: IElementList = {
     'row': {
         type: 'row',
         name: 'flex布局',

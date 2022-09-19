@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import type { Schema } from '@special/schema';
+import { ELEMENT_TYPE, Schema } from '@special/schema';
+import { layoutElementList } from '@special/schema';
 import { cloneDeep } from 'lodash-es'
 import { findFfs } from '@special/shared'
 interface IState {
@@ -45,22 +46,57 @@ export const useSchema = defineStore('schema', {
             this.currentComponent = undefined
         },
         // 更新组件的属性
-        updateComponentProps(type: 'attr' | 'css' | 'event', key: string, value: any){
-            console.log(type,key,value);
-            
-            switch (type) {
-                case 'attr':
-                    this.currentComponent!.props[key] = value
-                    break;
-                case 'css':
-                    this.currentComponent!.props.style[key] = value
-                    break;
-                case 'event':
-                    (this.currentComponent as any).event[key] = value
-                    break;
-                default:
-                    break;
+        updateComponentProps(type: 'attr' | 'css' | 'event', key: string, value: any) {
+            if (this.currentComponent!.type !== 'row') {
+                switch (type) {
+                    case 'attr':
+                        this.currentComponent!.props[key] = value
+                        break;
+                    case 'css':
+                        this.currentComponent!.props.style[key] = value
+                        break;
+                    case 'event':
+                        (this.currentComponent as any).event[key] = value
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                switch (type) {
+                    case 'attr':
+                        switch (key) {
+                            case 'columnNum':
+                                let componentType = this.currentComponent!.type
+                                let curColumnLen = this.currentComponent!.children?.length as number
+                                if (value > curColumnLen) {
+                                    const col = layoutElementList[componentType].children![0]
+                                    for (let i = 1; i <= (value - curColumnLen); i++) {
+                                        this.currentComponent?.children!.push(col)
+                                    }
+                                    this.currentComponent?.children?.forEach(i => {
+                                        i.props.span = Math.floor(24 / +value)
+                                    })
+                                }
+                                this.currentComponent!.props[key] = value
+
+                                break;
+                            default:
+                                this.currentComponent!.props[key] = value
+                                break;
+                        }
+                        break;
+                    case 'css':
+                        this.currentComponent!.props.style[key] = value
+                        break;
+                    case 'event':
+                        (this.currentComponent as any).event[key] = value
+                        break;
+                    default:
+                        break;
+                }
+
             }
+
         },
         // 重置初始属性
         resetComponentProps() {

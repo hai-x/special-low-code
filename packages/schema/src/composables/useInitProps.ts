@@ -62,11 +62,6 @@ const INIT_PROPS_MAP: any = {
             style:{
                 width: '100%',
                 height: '75px',
-                border: '',
-                borderRaduis: '',
-                fontSize: '',
-                fontWeight: '',
-                lineHeight: '',
                 position:'absolute',
             }
         },
@@ -75,11 +70,6 @@ const INIT_PROPS_MAP: any = {
             style:{
                 width: '50%',
                 height: '100%',
-                border: '',
-                borderRaduis: '',
-                fontSize: '',
-                fontWeight: '',
-                lineHeight: '',
             }
         }
     }
