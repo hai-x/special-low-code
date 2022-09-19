@@ -1,3 +1,5 @@
 export { default as generateId } from './uuid'
 export { default as useGenerator } from './useGenerator'
 export { default as $ } from './selector'
+export { default as findFfs} from './findDfs'
+export { default as transformToCss} from './transformToCss'

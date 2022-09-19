@@ -20,7 +20,7 @@
       <!-- 操作区域 -->
       <div class="action__wrap">
         <!-- 拖动手柄 -->
-        <div class="drag-handler" :draggable="true" @dragend="dragendHandler">
+        <div class="drag-handler" :draggable="activeFrame.canMove" @dragend="dragendHandler">
           <span> {{ activeFrame.id }} </span>
         </div>
         <div class="delete-handler">
@@ -35,46 +35,98 @@
 
 <script lang="ts" setup>
 import { Schema } from "@special/schema";
-import { ref, inject, computed } from "vue";
+import { inject, computed, watch, ref } from "vue";
 import { Delete } from "@element-plus/icons-vue";
 import useDrop from "@/composables/useDrop";
 import useDrag from "@/composables/useDrag";
-
+import { $, transformToCss } from "@special/shared";
 const schemaStore: any = inject("schemaStore");
 
-const activeFrame = computed<any>(() => {
-  let style = schemaStore.currentComponent?.props.style;
-  return {
-    id: schemaStore.currentComponent?.id,
-    style: {
-      width: style?.width,
-      height: style?.height,
-      top: style?.top,
-      bottom: style?.bottom,
-      left: style?.left,
-      right: style?.right,
-    },
-  };
+const activeFrame = ref({
+  id: "",
+  style: {},
+  canMove: true,
 });
+
+watch(
+  () => schemaStore.currentComponent,
+  (v) => {
+    let id = v?.id;
+    let maskDom: any = $(`#${id}`);
+    if (maskDom) {
+      activeFrame.value.id = id;
+      activeFrame.value.style = transformToCss(maskDom.style.cssText);
+    } else {
+      activeFrame.value.id = "";
+      activeFrame.value.style = {};
+    }
+  },
+  {
+    deep: true,
+  }
+);
 
 const { dragoverHandler, dragenterHandler, dropHandler } = useDrop(schemaStore);
 
 const { dragendHandler } = useDrag(schemaStore, activeFrame);
 
-const maskDomConfig = computed(() => {
-  return schemaStore.schema?.map((i: Schema) => {
+const findAllMaskDom = (
+  schemalist: Schema[],
+  finalList: any,
+  positition?: { left: string; top: string },
+  columnLen?: number,
+  columnIndex?: number
+) => {
+  schemalist.forEach((i: Schema, index: number) => {
+    if (i.type === "col") {
+      findAllMaskDom(i.children!, finalList, positition, columnLen, index);
+      return;
+    }
     const { width, height, top, left, right, bottom } = i.props.style;
-    return {
-      id: i.id,
+
+    const finalStyle = {
       width,
       height,
-      top,
-      left,
+      top: positition?.top ? positition.top : top,
+      left: positition?.left
+        ? `${
+            parseInt(positition.left) +
+            Math.floor(375 / columnLen!) * columnIndex!
+          }px`
+        : left,
       right,
       bottom,
       position: "absolute",
     };
+    // 如果当前dom为选中节点，更新选中框样式
+    if (i.id === activeFrame.value.id) {
+      activeFrame.value.style = finalStyle;
+      activeFrame.value.canMove = !positition?.left
+    }
+
+    const finalInfo = {
+      id: i.id,
+      ...finalStyle,
+    };
+    finalList.push(finalInfo);
+
+    if (i.children?.length! > 0) {
+      // 如果是布局组件 需要告知子组件列数和位置 动态计算位置
+      if (i.type === "row") {
+        const position = { left, top };
+        findAllMaskDom(i.children!, finalList, position, i.children?.length);
+      } else {
+        findAllMaskDom(i.children!, finalList);
+      }
+    }
   });
+};
+
+const maskDomConfig = computed(() => {
+  let finalList: any = [];
+  let schema = schemaStore.schema;
+  findAllMaskDom(schema, finalList);
+  return finalList;
 });
 
 const activeOrInActive = (e: any) => {
@@ -89,7 +141,7 @@ const activeOrInActive = (e: any) => {
 const removeComponent = () => {
   schemaStore.deleteComponentById();
   activeFrame.value.id = "";
-  activeFrame.value.style = null;
+  activeFrame.value.style = {};
 };
 </script>
 

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import type { Schema } from '@special/schema';
 import { cloneDeep } from 'lodash-es'
-
+import { findFfs } from '@special/shared'
 interface IState {
     schema: Schema[],
     currentComponent: Schema | undefined,
@@ -26,12 +26,12 @@ export const useSchema = defineStore('schema', {
             this.schema.push(v)
         },
         // schema增加组件（微）
-        pushComponentToItem(v: Schema,id:string,columnIndex:number) {
+        pushComponentToItem(v: Schema, id: string, columnIndex: number) {
             this.schema.find(i => i.id === id)?.children?.[columnIndex].children!.push(v)
         },
         // 设置当前选中的组件
         setCurrentComponent(id: string) {
-            this.currentComponent = this.schema.find((item: Schema) => item.id === id)
+            this.currentComponent = findFfs(this.schema, id)
             this.initCurrentComponentProps = cloneDeep(this.currentComponent?.props)
             this.initCurrentComponentEvents = cloneDeep(this.currentComponent?.event)
         },
@@ -45,7 +45,9 @@ export const useSchema = defineStore('schema', {
             this.currentComponent = undefined
         },
         // 更新组件的属性
-        updateComponentProps(type: 'attr' | 'css' | 'event', key: string, value: any) {
+        updateComponentProps(type: 'attr' | 'css' | 'event', key: string, value: any){
+            console.log(type,key,value);
+            
             switch (type) {
                 case 'attr':
                     this.currentComponent!.props[key] = value

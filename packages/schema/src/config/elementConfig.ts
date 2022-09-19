@@ -48,13 +48,6 @@ const layoutElementList: IElementList = {
                 props: useInitProps(ELEMENT_TYPE.LAYOUT, 'col'),
                 event: useInitEvents('row'),
                 children: [],
-            }, {
-                type: 'col',
-                name: '列',
-                componentName: 'ElCol',
-                props: useInitProps(ELEMENT_TYPE.LAYOUT, 'col'),
-                event: useInitEvents('row'),
-                children: [],
             }
         ],
     },

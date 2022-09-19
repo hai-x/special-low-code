@@ -20,8 +20,8 @@ interface ITreeData {
 const getTreeData = (schema:Schema[])=>{
     return schema.map((item:Schema):ITreeData=>{
         return {
-            label:item.id,
-            id:item.id,
+            label:item.id || item.type,
+            id:item.id || item.type,
             children:getTreeData(item?.children || []),
         }
     })

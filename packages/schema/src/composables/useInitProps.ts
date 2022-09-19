@@ -58,6 +58,7 @@ const INIT_PROPS_MAP: any = {
     },
     [ELEMENT_TYPE.LAYOUT]: {
         row: {
+            columnNum:1,
             style:{
                 width: '100%',
                 height: '75px',
@@ -70,7 +71,7 @@ const INIT_PROPS_MAP: any = {
             }
         },
         col:{
-            span:12,
+            span:24,
             style:{
                 width: '50%',
                 height: '100%',

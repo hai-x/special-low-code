@@ -1,32 +1,34 @@
 import { $ } from "@special/shared";
 import { Ref } from "vue";
+import { debounce } from 'lodash-es'
 
 export default function useDrag(store: any, activeFrame: Ref<Record<string, any>>) {
+    const debounceUpdate = debounce(store.updateComponentProps, 100)
     const strategy: Record<string, Function> = {
         exceedRight: (top: string) => {
-            store.updateComponentProps('css', 'left', undefined);
-            store.updateComponentProps('css', 'right', '0px');
-            store.updateComponentProps('css', 'top', top);
+            debounceUpdate('css', 'left', undefined);
+            debounceUpdate('css', 'right', '0px');
+            debounceUpdate('css', 'top', top);
         },
         exceedBottom: (left: string) => {
-            store.updateComponentProps('css', 'top', undefined);
-            store.updateComponentProps('css', 'bottom', '0px');
-            store.updateComponentProps('css', 'left', left);
+            debounceUpdate('css', 'top', undefined);
+            debounceUpdate('css', 'bottom', '0px');
+            debounceUpdate('css', 'left', left);
         },
         exceedBoth: () => {
-            store.updateComponentProps('css', 'left', undefined);
-            store.updateComponentProps('css', 'top', undefined);
-            store.updateComponentProps('css', 'bottom', '0px');
-            store.updateComponentProps('css', 'right', '0px');
+            debounceUpdate('css', 'left', undefined);
+            debounceUpdate('css', 'top', undefined);
+            debounceUpdate('css', 'bottom', '0px');
+            debounceUpdate('css', 'right', '0px');
         },
         normal: (left: string, top: string, componentType: 'layout' | 'basic' = 'basic') => {
             switch (componentType) {
                 case 'layout':
-                    store.updateComponentProps('css', 'top', top);
+                    debounceUpdate('css', 'top', top);
                     break;
                 case 'basic':
-                    store.updateComponentProps('css', 'left', left);
-                    store.updateComponentProps('css', 'top', top);
+                    debounceUpdate('css', 'left', left);
+                    debounceUpdate('css', 'top', top);
                     break;
                 default:
                     break;

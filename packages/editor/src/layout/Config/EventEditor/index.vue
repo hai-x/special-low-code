@@ -57,6 +57,7 @@ const confirmCodeEdit = (v: string) => {
 const updateEventValue = (key: "eventType", value: any) => {
   schemaStore.updateComponentProps("event", key, value);
 };
+
 const resetEvent = () => {
   schemaStore.resetComponentEvents();
 };

@@ -58,8 +58,6 @@ export default function useDrop(store: any) {
                 const schema = omit(ELEMENT_INFO,'props.style.position')
                 store.pushComponentToItem(schema, droppableAreaInfo.id, droppableAreaInfo.index)
             } else {
-                console.log(11);
-
                 store.pushComponentToSchema({
                     ...ELEMENT_INFO,
                     props: {
@@ -73,10 +71,6 @@ export default function useDrop(store: any) {
                 });
 
             }
-
-
-
-
 
         }
     };

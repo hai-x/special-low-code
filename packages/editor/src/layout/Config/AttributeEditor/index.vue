@@ -36,19 +36,17 @@
 
 <script lang="ts" setup>
 import FormItem from "../components/FormItem.vue";
-import { computed, ref,inject } from "vue";
-import {
-  propsConfig,
-  cssConfig,
-} from "@special/schema";
+import { computed, ref, inject } from "vue";
+import { propsConfig, cssConfig } from "@special/schema";
 
-import type {
-  IPropsConfig
-} from "@special/schema";
+import type { IPropsConfig } from "@special/schema";
+import { debounce } from "lodash-es";
 
 const activeTabName = ref(["attr", "css"]);
 
-const schemaStore:any = inject('schemaStore');
+const schemaStore: any = inject("schemaStore");
+
+const debounceUpdate = debounce(schemaStore.updateComponentProps, 100);
 
 const currentComponent = computed(() => schemaStore.currentComponent);
 
@@ -63,11 +61,11 @@ const attrModel = computed(() => currentComponent.value?.props);
 const cssModel = computed(() => currentComponent.value?.props?.style);
 
 const updateAttrFormValue = (key: string, value: any) => {
-  schemaStore.updateComponentProps("attr", key, value);
+  debounceUpdate("attr", key, value);
 };
 
 const updateCssValue = (key: string, value: any) => {
-  schemaStore.updateComponentProps("css", key, value);
+  debounceUpdate("css", key, value);
 };
 
 const resetProps = () => {

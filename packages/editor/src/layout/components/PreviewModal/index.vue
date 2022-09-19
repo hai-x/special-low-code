@@ -46,7 +46,6 @@ const isPhoneMode = computed(() => mode?.value === "phone");
   height: 775px;
   width: 375px;
   padding: 55px 15px 25px;
-  overflow: scroll;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;

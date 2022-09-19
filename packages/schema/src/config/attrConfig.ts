@@ -183,4 +183,12 @@ export const propsConfig: PropsConfig = {
             title: '最大分值',
         },
     ],
+    'row':[
+        {
+            type: FORM_ITEM_TYPE.INPUT,
+            key: 'columnNum',
+            valueType: 'number',
+            title: '列数',
+        },
+    ]
 }
