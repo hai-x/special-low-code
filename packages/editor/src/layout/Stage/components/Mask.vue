@@ -13,14 +13,18 @@
       :style="dom"
     ></div>
     <div
-      v-if="activeFrame.id"
+      v-show="activeFrame.id"
       :style="activeFrame.style"
-      :class="{ 'frame__wrap-active': activeFrame?.id }"
+      :class="{ 'frame__wrap-active': activeFrame.id }"
     >
       <!-- 操作区域 -->
       <div class="action__wrap">
         <!-- 拖动手柄 -->
-        <div class="drag-handler" :draggable="activeFrame.canMove" @dragend="dragendHandler">
+        <div
+          class="drag-handler"
+          :draggable="activeFrame.canMove"
+          @dragend="dragendHandler"
+        >
           <span> {{ activeFrame.id }} </span>
         </div>
         <div class="delete-handler">
@@ -47,24 +51,6 @@ const activeFrame = ref({
   style: {},
   canMove: true,
 });
-
-watch(
-  () => schemaStore.currentComponent,
-  (v) => {
-    let id = v?.id;
-    let maskDom: any = $(`#${id}`);
-    if (maskDom) {
-      activeFrame.value.id = id;
-      activeFrame.value.style = transformToCss(maskDom.style.cssText);
-    } else {
-      activeFrame.value.id = "";
-      activeFrame.value.style = {};
-    }
-  },
-  {
-    deep: true,
-  }
-);
 
 const { dragoverHandler, dragenterHandler, dropHandler } = useDrop(schemaStore);
 
@@ -101,7 +87,7 @@ const findAllMaskDom = (
     // 如果当前dom为选中节点，更新选中框样式
     if (i.id === activeFrame.value.id) {
       activeFrame.value.style = finalStyle;
-      activeFrame.value.canMove = !positition?.left
+      activeFrame.value.canMove = !positition?.left;
     }
 
     const finalInfo = {
@@ -133,8 +119,21 @@ const activeOrInActive = (e: any) => {
   if (e.target.id) {
     let { id } = e.target;
     schemaStore.setCurrentComponent(id);
+    const { width, height, top, left, right, bottom } =
+      schemaStore.currentComponent.props.style;
+    activeFrame.value.id = id;
+    activeFrame.value.style = {
+      width,
+      height,
+      top,
+      left,
+      right,
+      bottom,
+    };
   } else {
     schemaStore.clearCurrentComponent();
+    activeFrame.value.id = "";
+    activeFrame.value.style = {};
   }
 };
 
