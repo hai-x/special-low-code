@@ -19,6 +19,8 @@ export default function useDrop(store: any) {
                 if (droppable) {
                     droppableAreaId = areaList[i].id;
                     columnIndex = j-1
+                    console.log(droppableAreaId,columnIndex);
+                    
                     break
                 }
             }

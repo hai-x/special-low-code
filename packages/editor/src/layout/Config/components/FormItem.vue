@@ -44,12 +44,23 @@ export default defineComponent({
   components: { ElInput, ElSelect, ElOption },
   setup(props, { emit }) {
     const model = computed({
-      set(val) {
-        if (props.valueType === "number") {
-          emit("update:modelValue", props.formKey, +val!);
-          return;
+      set(val) {    
+        switch (props.valueType) {
+          case "Boolean":
+            emit("update:modelValue", props.formKey, !!val);
+            break;
+
+          case "String":
+            emit("update:modelValue", props.formKey, val);
+            break;
+
+          case "Number":
+            emit("update:modelValue", props.formKey, +val!);
+            break;
+
+          default:
+            break;
         }
-        emit("update:modelValue", props.formKey, val);
       },
       get() {
         if (!props?.modelValue) return null;

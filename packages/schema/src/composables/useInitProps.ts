@@ -1,15 +1,3 @@
-
-// const initStyle = {
-//     width: '',
-//     height: '',
-//     borderWidth: '',
-//     borderRaduis: '',
-//     fontSize: '',
-//     fontWeight: '',
-//     lineHeight: '',
-//     textAlign: 'left',
-//     position: 'absolute'
-// }
 import { ELEMENT_TYPE } from "../types"
 
 const INIT_PROPS_MAP: any = {
@@ -55,9 +43,68 @@ const INIT_PROPS_MAP: any = {
                 position: 'absolute'
             }
         },
+        'checkbox': {
+            modelValue:true,
+            style: {
+                width: '100px',
+                height: '20px',
+                border: '',
+                borderRaduis: '',
+                fontSize: '',
+                fontWeight: '',
+                lineHeight: '',
+                position: 'absolute'
+            }
+        },
+        'colorPicker': {
+            modelValue:'#409EFF',
+            style: {
+                width: '50px',
+                height: '20px',
+                border: '',
+                borderRaduis: '',
+                fontSize: '',
+                fontWeight: '',
+                lineHeight: '',
+                position: 'absolute'
+            }
+        },
+        'datePicker': {
+            modelValue:new Date(),
+            style: {
+                width: '150px',
+                height: '20px',
+                border: '',
+                borderRaduis: '',
+                fontSize: '',
+                fontWeight: '',
+                lineHeight: '',
+                position: 'absolute'
+            }
+        },
+        'switch': {
+            modelValue:true,
+            style: {
+                width: '40px',
+                height: '20px',
+                border: '',
+                borderRaduis: '',
+                fontSize: '',
+                fontWeight: '',
+                lineHeight: '',
+                position: 'absolute'
+            }
+        },
     },
     [ELEMENT_TYPE.LAYOUT]: {
-        row: {
+        'card': {
+            style:{
+                width: '200px',
+                height: '150px',
+                position:'absolute',
+            }
+        },
+        'row': {
             columnNum:1,
             style:{
                 width: '100%',
@@ -65,7 +112,7 @@ const INIT_PROPS_MAP: any = {
                 position:'absolute',
             }
         },
-        col:{
+        'col':{
             span:24,
             style:{
                 width: '50%',

@@ -24,6 +24,7 @@
           :options="item?.options"
           :title="item.title"
           :formKey="item.key"
+          :value-type="item.valueType"
         />
       </el-collapse-item>
     </el-collapse>

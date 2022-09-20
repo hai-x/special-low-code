@@ -11,6 +11,22 @@ const INIT_EVENT_MAP: any = {
     'rate': {
         eventType: 'change',
         code: ''
+    },
+    'checkbox': {
+        eventType: 'update:modelValue',
+        code: ''
+    },
+    'colorPicker': {
+        eventType: 'update:modelValue',
+        code: ''
+    },
+    'datePicker': {
+        eventType: 'update:modelValue',
+        code: ''
+    },
+    'switch': {
+        eventType: 'update:modelValue',
+        code: ''
     }
 
 }

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ELEMENT_TYPE, Schema } from '@special/schema';
 import { layoutElementList } from '@special/schema';
 import { cloneDeep } from 'lodash-es'
-import { findFfs } from '@special/shared'
+import { findDfs, deleteDfs,useGenerator } from '@special/shared'
 interface IState {
     schema: Schema[],
     currentComponent: Schema | undefined,
@@ -24,15 +24,15 @@ export const useSchema = defineStore('schema', {
         },
         // schema增加组件（宏）
         pushComponentToSchema(v: Schema) {
-            this.schema.push(v)
+            this.schema.push(cloneDeep(v))
         },
         // schema增加组件（微）
         pushComponentToItem(v: Schema, id: string, columnIndex: number) {
-            this.schema.find(i => i.id === id)?.children?.[columnIndex].children!.push(v)
+            this.schema.find(i => i.id === id)?.children?.[columnIndex].children!.push(cloneDeep(v))
         },
         // 设置当前选中的组件
         setCurrentComponent(id: string) {
-            this.currentComponent = findFfs(this.schema, id)
+            this.currentComponent = findDfs(this.schema, id)
             this.initCurrentComponentProps = cloneDeep(this.currentComponent?.props)
             this.initCurrentComponentEvents = cloneDeep(this.currentComponent?.event)
         },
@@ -42,8 +42,8 @@ export const useSchema = defineStore('schema', {
         },
         // 删除选中组件
         deleteComponentById() {
-            this.schema.splice(this.schema.findIndex((item: Schema) => item.id === this.currentComponent?.id), 1)
-            this.currentComponent = undefined
+            deleteDfs(this.schema, this.currentComponent?.id!)
+            this.clearCurrentComponent()
         },
         // 更新组件的属性
         updateComponentProps(type: 'attr' | 'css' | 'event', key: string, value: any) {
@@ -69,9 +69,9 @@ export const useSchema = defineStore('schema', {
                                 let componentType = this.currentComponent!.type
                                 let curColumnLen = this.currentComponent!.children?.length as number
                                 if (value > curColumnLen) {
-                                    const col = layoutElementList[componentType].children![0]
+                                    const col = cloneDeep(layoutElementList[componentType].children![0])
                                     for (let i = 1; i <= (value - curColumnLen); i++) {
-                                        this.currentComponent?.children!.push(col)
+                                        this.currentComponent?.children!.push(useGenerator(col))
                                     }
                                     this.currentComponent?.children?.forEach(i => {
                                         i.props.span = Math.floor(24 / +value)

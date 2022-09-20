@@ -43,7 +43,7 @@ import { inject, computed, watch, ref } from "vue";
 import { Delete } from "@element-plus/icons-vue";
 import useDrop from "@/composables/useDrop";
 import useDrag from "@/composables/useDrag";
-import { $, transformToCss } from "@special/shared";
+import { $ } from "@special/shared";
 const schemaStore: any = inject("schemaStore");
 
 const activeFrame = ref({
