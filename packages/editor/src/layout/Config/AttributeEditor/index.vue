@@ -47,6 +47,8 @@ const activeTabName = ref(["attr", "css"]);
 
 const schemaStore: any = inject("schemaStore");
 
+const sandBox: any = inject("sandBox");
+
 const debounceUpdate = debounce(schemaStore.updateComponentProps, 100);
 
 const currentComponent = computed(() => schemaStore.currentComponent);

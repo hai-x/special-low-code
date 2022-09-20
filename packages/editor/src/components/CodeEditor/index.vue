@@ -4,7 +4,6 @@
     :placeholder="placeholder"
     :style="{ height: `${height}px` }"
     :autofocus="true"
-    :extensions="extensions"
   >
   </Codemirror>
 </template>
@@ -12,7 +11,6 @@
 <script lang="ts" setup>
 import { Codemirror } from "vue-codemirror";
 import { computed } from "vue";
-import { oneDark } from "@codemirror/theme-one-dark";
 
 const props = defineProps({
   modelValue: {
@@ -29,8 +27,6 @@ const props = defineProps({
   },
 });
 const emits = defineEmits(["update:modelValue"]);
-
-const extensions = [oneDark];
 
 const model = computed({
   get() {

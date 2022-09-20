@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@codemirror/theme-one-dark": "^6.0.0",
     "@element-plus/icons-vue": "^2.0.9",
     "@special/compiler": "workspace:^1.0.0",
     "@special/schema": "workspace:^1.0.0",

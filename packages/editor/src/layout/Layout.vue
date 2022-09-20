@@ -39,9 +39,13 @@ import CompilerModal from "./components/CompilerModal/index.vue";
 import { ref, provide } from "vue";
 import WorkBench from "./WorkBench/index.vue";
 import { useSchema } from "@/store/schema";
+import { createSandBox } from "@special/shared";
 
 const schemaStore = useSchema();
 provide("schemaStore", schemaStore);
+let sandBox = createSandBox();
+provide("sandBox", sandBox);
+// console.log(sandBox);
 
 const mode = ref<"phone" | "pc">("phone");
 provide("mode", mode);
@@ -83,7 +87,7 @@ const toolConfig = ref({
   .main__wrap {
     height: calc(100% - 64px);
     display: flex;
-    overflow: scroll;
+    overflow: hidden;
 
     .main__left {
       flex-basis: 64px;

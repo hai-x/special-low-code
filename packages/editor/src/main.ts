@@ -8,7 +8,6 @@ import { createPinia } from 'pinia'
 
 const Store = createPinia()
 
-
 import App from './App.vue'
 
 const app = createApp(App)
