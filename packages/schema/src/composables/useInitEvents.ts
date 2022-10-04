@@ -16,10 +16,6 @@ const INIT_EVENT_MAP: any = {
         eventType: 'update:modelValue',
         code: ''
     },
-    'colorPicker': {
-        eventType: 'update:modelValue',
-        code: ''
-    },
     'datePicker': {
         eventType: 'update:modelValue',
         code: ''

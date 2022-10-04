@@ -1,5 +1,5 @@
-import { $ } from "@special/shared";
-import { omit } from 'lodash-es'
+import { $, isLayoutComp } from "@special/shared";
+import { omit, merge } from 'lodash-es'
 
 export default function useDrop(store: any) {
 
@@ -18,9 +18,7 @@ export default function useDrop(store: any) {
 
                 if (droppable) {
                     droppableAreaId = areaList[i].id;
-                    columnIndex = j-1
-                    console.log(droppableAreaId,columnIndex);
-                    
+                    columnIndex = j - 1
                     break
                 }
             }
@@ -45,8 +43,7 @@ export default function useDrop(store: any) {
         e.preventDefault();
         if (e.dataTransfer?.getData("ELEMENT_INFO")) {
             let ELEMENT_INFO = JSON.parse(e.dataTransfer?.getData("ELEMENT_INFO"));
-            const isLayoutComponent = ELEMENT_INFO.type === 'row'
-
+            
             const { clientX, clientY } = e;
 
             const { x, y } = $(".stage__wrap")!.getBoundingClientRect();
@@ -55,22 +52,17 @@ export default function useDrop(store: any) {
             const top = `${Math.floor(clientY - y)}px`;
 
             let droppableAreaInfo = findDroppableArea(clientX, clientY)
-            // @ts-ignore
             if (droppableAreaInfo?.id) {
-                const schema = omit(ELEMENT_INFO,'props.style.position')
+                const schema = omit(ELEMENT_INFO, 'props.style.position')
                 store.pushComponentToItem(schema, droppableAreaInfo.id, droppableAreaInfo.index)
             } else {
-                store.pushComponentToSchema({
-                    ...ELEMENT_INFO,
-                    props: {
-                        ...ELEMENT_INFO.props,
-                        style: {
-                            ...ELEMENT_INFO.props.style,
-                            top,
-                            left: isLayoutComponent ? '0px' : left,
-                        },
-                    },
-                });
+                store.pushComponentToSchema(
+                    merge(ELEMENT_INFO, {
+                    cssStyle: merge(ELEMENT_INFO.cssStyle, {
+                        top,
+                        left: isLayoutComp(ELEMENT_INFO.type) ? '0px' : left,
+                    })
+                }));
 
             }
 

@@ -24,19 +24,19 @@
 
 <script lang="ts" setup>
 import FormItem from "../components/FormItem.vue";
-import { FORM_ITEM_TYPE,eventConfig } from "@special/schema";
+import { FORM_ITEM_TYPE, eventConfig } from "@special/schema";
 import { computed, inject, ref } from "vue";
 import CodeEditorModal from "../components/CodeEditorModal.vue";
 
 const CodeEditorModalRef = ref(null);
 
-const schemaStore:any = inject('schemaStore');
+const schemaStore: any = inject("schemaStore");
 
 const currentComponent = computed(() => schemaStore.currentComponent);
 
 const eventModel = computed(() => currentComponent.value?.event);
 
-const finalEventConfig:any = [
+const finalEventConfig: any = [
   ...eventConfig,
   {
     type: FORM_ITEM_TYPE.BUTTON,
@@ -51,11 +51,11 @@ const finalEventConfig:any = [
 ];
 
 const confirmCodeEdit = (v: string) => {
-  schemaStore.updateComponentProps("event", "code", v);
+  schemaStore.updateComponentEvent("code", v);
 };
 
 const updateEventValue = (key: "eventType", value: any) => {
-  schemaStore.updateComponentProps("event", key, value);
+  schemaStore.updateComponentEvent(key, value);
 };
 
 const resetEvent = () => {

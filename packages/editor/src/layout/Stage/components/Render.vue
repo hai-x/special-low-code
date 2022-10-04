@@ -1,20 +1,3 @@
-<!-- <template>
-  <div class="render__wrap">
-    <div v-for="(config, index1) in schemaStore.schema" :key="index1">
-      <component :is="config.componentName" v-bind="config.props">
-        <template v-if="config.children.componentName.length">
-          {{ config.type }}
-        </template>
-        <template v-else>
-          <div v-for="((subConfig,index2) in config.children)" :key="index2">
-            <component :is="subConfig.componentName"></component>
-          </div>
-        </template>
-      </component>
-    </div>
-  </div>
-</template> -->
-
 <script lang="tsx">
 import { Schema } from "@special/schema";
 import { computed, defineComponent, inject, resolveComponent } from "vue";
@@ -27,10 +10,10 @@ export default defineComponent({
 
       return (
         //@ts-ignore
-        <Tag {...config?.props}>
+        <Tag style={{...config.cssStyle}} {...config.props}>
           {config?.children?.length! > 0
             ? config?.children?.map((child: Schema) => resolve(child))
-            : config?.type}
+            : config?.name}
         </Tag>
       );
     };

@@ -1,38 +1,38 @@
-import { $ } from "@special/shared";
+import { $, isBasicComp, isLayoutComp } from "@special/shared";
 import { Ref } from "vue";
-import { debounce } from 'lodash-es'
 
 export default function useDrag(store: any, activeFrame: Ref<Record<string, any>>) {
     const strategy: Record<string, Function> = {
         exceedRight: (top: string) => {
-            store.updateComponentProps('css', 'left', undefined);
-            store.updateComponentProps('css', 'right', '0px');
-            store.updateComponentProps('css', 'top', top);
+            store.updateComponentCssStyle({
+                left: undefined,
+                right: '0px',
+                top
+            })
         },
         exceedBottom: (left: string) => {
-            store.updateComponentProps('css', 'top', undefined);
-            store.updateComponentProps('css', 'bottom', '0px');
-            store.updateComponentProps('css', 'left', left);
+            store.updateComponentCssStyle({
+                top: undefined,
+                bottom: '0px',
+                left
+            })
         },
         exceedBoth: () => {
-            store.updateComponentProps('css', 'left', undefined);
-            store.updateComponentProps('css', 'top', undefined);
-            store.updateComponentProps('css', 'bottom', '0px');
-            store.updateComponentProps('css', 'right', '0px');
+            store.updateComponentCssStyle({
+                left: undefined,
+                top: undefined,
+                bottom: '0px',
+                right: '0px',
+            })
         },
-        normal: (left: string, top: string, componentType: 'layout' | 'basic' = 'basic') => {
-            switch (componentType) {
-                case 'layout':
-                    store.updateComponentProps('css', 'top', top);
-                    break;
-                case 'basic':
-                    store.updateComponentProps('css', 'left', left);
-                    store.updateComponentProps('css', 'top', top);
-                    break;
-                default:
-                    break;
+        normal: (left: string, top: string) => {
+            const compType = store.currentComponent.type
+            
+            if (isLayoutComp(compType)) {
+                store.updateComponentCssStyle({ top });
+            } else if (isBasicComp(compType)) {
+                store.updateComponentCssStyle({ top, left });
             }
-
         }
     }
 
@@ -42,7 +42,6 @@ export default function useDrag(store: any, activeFrame: Ref<Record<string, any>
 
         const curComponentWidth = parseInt(activeFrame.value.style.width)
         const curComponentHeight = parseInt(activeFrame.value.style.height)
-        const componentType = activeFrame.value.id.startsWith('row') ? 'layout' : 'basic'
 
         const { x, y, width, height } = $(".stage__wrap")!.getBoundingClientRect();
 
@@ -75,9 +74,9 @@ export default function useDrag(store: any, activeFrame: Ref<Record<string, any>
 
         }
         if (right || bottom) return
-
+        
         // 没有超出的情况 则只设置left和top
-        strategy['normal'](left, top, componentType)
+        strategy['normal'](left, top)
 
 
     }

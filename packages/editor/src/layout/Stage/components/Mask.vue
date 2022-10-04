@@ -3,7 +3,7 @@
     @drop="dropHandler"
     @dragover="dragoverHandler"
     @dragenter="dragenterHandler"
-    @click="activeOrInActive"
+    @click="(e:any) => schemaStore.setCurrentComponent(e.target.id)"
     class="mask__wrap"
   >
     <div
@@ -15,7 +15,7 @@
     <div
       v-show="activeFrame.id"
       :style="activeFrame.style"
-      :class="{ 'frame__wrap-active': activeFrame.id }"
+      class="frame__wrap-active"
     >
       <!-- 操作区域 -->
       <div class="action__wrap">
@@ -28,7 +28,7 @@
           <span> {{ activeFrame.id }} </span>
         </div>
         <div class="delete-handler">
-          <el-icon @click.stop="removeComponent">
+          <el-icon @click.stop="() => schemaStore.deleteCurrentComponent()">
             <Delete />
           </el-icon>
         </div>
@@ -43,12 +43,13 @@ import { inject, computed, watch, ref } from "vue";
 import { Delete } from "@element-plus/icons-vue";
 import useDrop from "@/composables/useDrop";
 import useDrag from "@/composables/useDrag";
-import { $ } from "@special/shared";
 const schemaStore: any = inject("schemaStore");
 
+const showActiveFrame = ref<Boolean>(false);
+
 const activeFrame = ref({
-  id: "",
-  style: {},
+  id: computed(() => schemaStore.currentComponent?.id),
+  style: computed(() => schemaStore.currentComponent?.cssStyle),
   canMove: true,
 });
 
@@ -68,7 +69,7 @@ const findAllMaskDom = (
       findAllMaskDom(i.children!, finalList, positition, columnLen, index);
       return;
     }
-    const { width, height, top, left, right, bottom } = i.props.style;
+    const { width, height, top, left, right, bottom } = i.cssStyle;
 
     const finalStyle = {
       width,
@@ -84,11 +85,6 @@ const findAllMaskDom = (
       bottom,
       position: "absolute",
     };
-    // 如果当前dom为选中节点，更新选中框样式
-    if (i.id === activeFrame.value.id) {
-      activeFrame.value.style = finalStyle;
-      activeFrame.value.canMove = !positition?.left;
-    }
 
     const finalInfo = {
       id: i.id,
@@ -109,39 +105,11 @@ const findAllMaskDom = (
 };
 
 const maskDomConfig = computed(() => {
-  let finalList: any = [];
-  let schema = schemaStore.schema;
-  findAllMaskDom(schema, finalList);
+  const finalList: any = [];
+  findAllMaskDom(schemaStore.schema, finalList);
   return finalList;
 });
 
-const activeOrInActive = (e: any) => {
-  if (e.target.id) {
-    let { id } = e.target;
-    schemaStore.setCurrentComponent(id);
-    const { width, height, top, left, right, bottom } =
-      schemaStore.currentComponent.props.style;
-    activeFrame.value.id = id;
-    activeFrame.value.style = {
-      width,
-      height,
-      top,
-      left,
-      right,
-      bottom,
-    };
-  } else {
-    schemaStore.clearCurrentComponent();
-    activeFrame.value.id = "";
-    activeFrame.value.style = {};
-  }
-};
-
-const removeComponent = () => {
-  schemaStore.deleteComponentById();
-  activeFrame.value.id = "";
-  activeFrame.value.style = {};
-};
 </script>
 
 <style lang="scss" scoped>

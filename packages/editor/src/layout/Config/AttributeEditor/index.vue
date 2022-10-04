@@ -49,7 +49,12 @@ const schemaStore: any = inject("schemaStore");
 
 const sandBox: any = inject("sandBox");
 
-const debounceUpdate = debounce(schemaStore.updateComponentProps, 100);
+const debounceUpdateProps = debounce(schemaStore.updateComponentProps, 100);
+
+const debounceUpdateCssStyle = debounce(
+  schemaStore.updateComponentCssStyle,
+  100
+);
 
 const currentComponent = computed(() => schemaStore.currentComponent);
 
@@ -64,11 +69,11 @@ const attrModel = computed(() => currentComponent.value?.props);
 const cssModel = computed(() => currentComponent.value?.props?.style);
 
 const updateAttrFormValue = (key: string, value: any) => {
-  debounceUpdate("attr", key, value);
+  debounceUpdateProps(key, value);
 };
 
 const updateCssValue = (key: string, value: any) => {
-  debounceUpdate("css", key, value);
+  debounceUpdateCssStyle({ [key]: value });
 };
 
 const resetProps = () => {

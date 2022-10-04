@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@special/schema": "workspace:^1.0.0",
     "lodash-es": "^4.17.21",
     "uuid": "^9.0.0"
   }

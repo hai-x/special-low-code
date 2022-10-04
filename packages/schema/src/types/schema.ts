@@ -9,10 +9,12 @@ export type Schema = {
     componentName: string
     // 组件传参props
     props?: any
+    // 组件样式
+    cssStyle?:any
     // 组件事件参数
     event?: {
-        eventType: string,
-        code: string
+        eventType?: string,
+        code?: string
     }
     // 子组件集合
     children?: Schema[]
