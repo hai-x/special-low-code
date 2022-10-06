@@ -7,11 +7,11 @@ export function findDfs(arr: any, id: string): any {
 }
 
 export function deleteDfs(arr: any, id: string): any {
-    for(let i in arr){
-        if(arr[i].id===id){
-            arr.splice(i,1)
-            return 
+    for (let i in arr) {
+        if (arr[i].id === id) {
+            arr.splice(i, 1)
+            return
         }
-        arr[i].children && deleteDfs(arr[i].children,id);
+        arr[i].children && deleteDfs(arr[i].children, id);
     }
 }

@@ -25,7 +25,9 @@ export const useSchema = defineStore('schema', {
         },
         // schema增加组件（宏）
         pushComponentToSchema(v: Schema) {
-            this.schema.push(cloneDeep(v))
+            const node = cloneDeep(v)
+            this.schema.push(node)
+            window.runtime.add(node)
         },
         // schema增加组件（微）
         pushComponentToItem(v: Schema, id: string, columnIndex: number) {
@@ -43,6 +45,7 @@ export const useSchema = defineStore('schema', {
         },
         // 删除选中组件
         deleteCurrentComponent() {
+            window.runtime.remove(this.currentComponent?.id!)
             deleteDfs(this.schema, this.currentComponent?.id!)
             this.clearCurrentComponent()
         },
@@ -50,6 +53,7 @@ export const useSchema = defineStore('schema', {
         updateComponentProps(key: string, value: any) {
             if (isBasicComp(this.currentComponent!.type)) {
                 this.currentComponent!.props[key] = value
+                window.runtime.update({ id: this.currentComponent!.id, type: 'props', key, value })
             } else if (isLayoutComp(this.currentComponent!.type)) {
                 switch (key) {
                     case 'columnNum':
@@ -73,10 +77,12 @@ export const useSchema = defineStore('schema', {
             }
         },
         // 更新组件的css样式
-        updateComponentCssStyle(updatedStyleSheet:Record<string,any>) {
-            Object.keys(updatedStyleSheet).forEach((key:string)=>{
+        updateComponentCssStyle(updatedStyleSheet: Record<string, any>) {
+            Object.keys(updatedStyleSheet).forEach((key: string) => {
                 this.currentComponent!.cssStyle[key] = updatedStyleSheet[key]
+                window.runtime.update({ id: this.currentComponent!.id, type: 'cssStyle', key, value: updatedStyleSheet[key] })
             })
+
         },
         // 更新组件的事件
         updateComponentEvent(key: 'eventType' | 'code', value: any) {
@@ -93,6 +99,7 @@ export const useSchema = defineStore('schema', {
         // 初始化Schema
         resetSchema() {
             this.schema = []
+            window.runtime.clearAll()
         },
         // 导入Schema
         importSchema(json: string) {

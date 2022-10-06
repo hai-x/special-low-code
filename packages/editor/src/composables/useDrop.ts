@@ -50,7 +50,7 @@ export default function useDrop(store: any) {
 
             const left = `${Math.floor(clientX - x)}px`;
             const top = `${Math.floor(clientY - y)}px`;
-
+            
             let droppableAreaInfo = findDroppableArea(clientX, clientY)
             if (droppableAreaInfo?.id) {
                 const schema = omit(ELEMENT_INFO, 'props.style.position')

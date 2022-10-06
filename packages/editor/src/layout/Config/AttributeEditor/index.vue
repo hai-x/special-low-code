@@ -66,7 +66,7 @@ const cssFormConfig = ref(cssConfig);
 
 const attrModel = computed(() => currentComponent.value?.props);
 
-const cssModel = computed(() => currentComponent.value?.props?.style);
+const cssModel = computed(() => currentComponent.value?.cssStyle);
 
 const updateAttrFormValue = (key: string, value: any) => {
   debounceUpdateProps(key, value);

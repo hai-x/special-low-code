@@ -36,14 +36,15 @@ import PreviewModal from "./components/PreviewModal/index.vue";
 import ImportSchemaModal from "./components/ImportSchemaModal/index.vue";
 import ExportSchemaModal from "./components/ExportSchemaModal/index.vue";
 import CompilerModal from "./components/CompilerModal/index.vue";
-import { ref, provide } from "vue";
+import { ref, provide, watch } from "vue";
 import WorkBench from "./WorkBench/index.vue";
 import { useSchema } from "@/store/schema";
 import { createSandBox } from "@special/shared";
 
-const schemaStore = useSchema();
-provide("schemaStore", schemaStore);
 let sandBox = createSandBox();
+const schemaStore = useSchema();
+
+provide("schemaStore", schemaStore);
 provide("sandBox", sandBox);
 // console.log(sandBox);
 
@@ -76,6 +77,7 @@ const toolConfig = ref({
     CompilerModalShow.value = true;
   },
 });
+
 </script>
 
 <style lang="scss">
