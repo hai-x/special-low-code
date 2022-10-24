@@ -1,5 +1,5 @@
 <template>
-  {{ a }}
+  
   <component
     :is="config.componentName"
     v-bind="config.props"
@@ -23,11 +23,7 @@ export default defineComponent({
   name: "RuntimeComp",
   props: ["config"],
   setup(props) {
-    let a = computed(() => {
-      console.log(props.config);
-      return props.config;
-    });
-    return { a };
+  
   },
 });
 </script>

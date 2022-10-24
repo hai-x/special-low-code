@@ -1,6 +1,7 @@
 <template>
   <div class="render__wrap">
-    <!-- {{ config }} -->
+    {{ schema }}
+    <RuntimeComp v-for="config in schema" :config="config"></RuntimeComp>
   </div>
 </template>
 
@@ -9,12 +10,11 @@ import { computed, ref, watch } from "vue";
 import RuntimeComp from "./components/RuntimeComp.vue";
 import { deleteDfs, findDfs } from "@special/shared";
 
-const config = ref<any>({});
-
-window.runtimeApi?.emitRuntimeReady({
+const schema = ref<any>([]);
+const i  = ref(1)
+const schemaOperator = {
   add(v: any) {
-    const id = v.id;
-    config.value[id] = v;
+    schema.value.push(v);
   },
   update({
     id,
@@ -27,16 +27,22 @@ window.runtimeApi?.emitRuntimeReady({
     key: string;
     value: any;
   }) {
-    config.value[id][type][key] = value;
+    // schema.value[0] = 1
+    // let node = findDfs(schema.value, id);
+    schema.value[1] = i.value++
+    // console.log((node = 1));
 
+    // node[type][key] = value;
   },
   remove(id: string) {
-    deleteDfs(config.value, id);
+    deleteDfs(schema.value, id);
   },
   clearAll() {
-    config.value = [];
+    schema.value = [];
   },
-});
+};
+
+window.runtimeApi?.emitRuntimeReady(schemaOperator);
 </script>
 
 <style scoped>

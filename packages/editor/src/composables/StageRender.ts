@@ -26,8 +26,6 @@ export default class StageRender extends EventEmitter {
             emitRuntimeReady: (runtime: any) => {
                 this.runtime = runtime;
                 window.runtime = runtime;
-                console.log(window.runtime);
-
                 this.emit('runtime-ready')
             },
         }
@@ -42,19 +40,17 @@ export default class StageRender extends EventEmitter {
         const base = `${this.runtimeUrl}`;
         html = html.replace('<head>', `<head>\n<base href="${base}">`);
         this.iframe.srcdoc = html;
-
         el.appendChild<HTMLIFrameElement>(this.iframe);
+        console.log(document.querySelector);
+        
         this.postRuntimeReady()
+
     }
     private postRuntimeReady() {
         this.contentWindow = this.iframe?.contentWindow;
-
         this.contentWindow.runtimeApi = this.getRuntimeApi();
     }
     private loadHandler() {
-        if (!this.contentWindow?.magic) {
-            this.postRuntimeReady();
-        }
         this.emit('runtime-load', this.iframe)
     }
 }

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm -C packages/editor dev",
+    "dev:editor": "pnpm -C packages/editor dev",
+    "dev:runtime": "pnpm -C ./runtime/vue3 dev",
     "build": "pnpm -C packages/editor build",
     "clean": "rimraf node_modules **/node_modules **/**/node_modules",
     "bootstrap": "pnpm i",
