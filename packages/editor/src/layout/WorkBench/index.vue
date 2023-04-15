@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-import ElementList from "./components/ElementList/index.vue";
+import ElementList from "./components/elementList/index.vue";
 import { Document, Star, Aim } from "@element-plus/icons-vue";
 import { ref } from "vue";
 import OutlinesTree from "./components/OutlinesTree/index.vue";
